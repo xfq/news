@@ -44,7 +44,7 @@ export interface RedirectRule {
 const ENGINE_REDIRECTS: RedirectRule[] = [
   {
     match: "regex",
-    path: "^/(all|about|agent|changelog|feedback|starred|more|privacy|terms)/+$",
+    path: "^/(all|about|agent|changelog|starred|more|privacy|terms)/+$",
     status: 301,
     location: "/$1",
     keepQuery: true,
@@ -118,7 +118,7 @@ const literal = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 /**
  * Paths served by the api process; everything else is the web process. The web server proxies these to
  * the api (a reverse proxy in front may also route them straight to it). Patterns are anchored so page
- * paths such as /feedback never fall into /feed.
+ * paths such as /featured never fall into /feed.
  */
 const ENGINE_API_PATHS: RegExp[] = [
   /^\/api\//,

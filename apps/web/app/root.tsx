@@ -15,7 +15,7 @@ import { usePageTransition } from "./components/shell/transitions";
 import { SearchOverlay } from "./features/search/SearchOverlay";
 import { BackToTop, NavigationProgress } from "./components/shell/Chrome";
 import { buttonClass } from "./components/ui/Controls";
-import { rememberPage, THEME_BOOT_SCRIPT, useThemeSync } from "./lib/local-state";
+import { THEME_BOOT_SCRIPT, useThemeSync } from "./lib/local-state";
 import { apiGet } from "./lib/api.server";
 import { useHydratedFlag } from "./lib/hydration";
 import { titled } from "./lib/seo";
@@ -111,8 +111,12 @@ export default function App() {
   const meta = useLoaderData<typeof loader>();
   useHydratedFlag();
   useThemeSync();
-  const { pathname, search } = useLocation();
-  useEffect(() => rememberPage(pathname + search), [pathname, search]);
+  const { pathname } = useLocation();
+  // Remove browser data left by the retired feedback form.
+  useEffect(() => {
+    try { localStorage.removeItem("aihot-feedback-draft-v1"); } catch {}
+    try { sessionStorage.removeItem("aihot:last-page"); } catch {}
+  }, []);
   usePageTransition();
   // iOS Safari only shows :active (pressed) styles once the document listens for touches.
   useEffect(() => {

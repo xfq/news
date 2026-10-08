@@ -179,11 +179,21 @@ test("a page without a loader still answers navigation with an empty result", as
   assert.equal(result["routes/terms"]!.data, null);
 });
 
+test("retired feedback pages return 404 and readers can report issues on GitHub", async () => {
+  for (const path of ["/feedback", "/admin/feedback"]) {
+    assert.equal((await fetch(origin + path)).status, 404);
+  }
+  const about = await fetch(origin + "/about");
+  const html = await about.text();
+  assert.match(html, /href="https:\/\/github.com\/xfq\/news\/issues"/);
+  assert.doesNotMatch(html, /href="\/feedback"/);
+});
+
 test("browser caching preserves noindex and private sign-in responses", async () => {
-  const feedback = await fetch(origin + "/feedback");
-  assert.equal(feedback.status, 200);
-  assert.match(await feedback.text(), /name="robots" content="noindex/);
-  assert.equal(feedback.headers.get("Cache-Control"), "public, max-age=300, s-maxage=300, must-revalidate");
+  const more = await fetch(origin + "/more");
+  assert.equal(more.status, 200);
+  assert.match(await more.text(), /name="robots" content="noindex/);
+  assert.equal(more.headers.get("Cache-Control"), "public, max-age=300, s-maxage=300, must-revalidate");
   const login = await fetch(origin + "/admin/login");
   assert.equal(login.status, 200);
   assert.equal(login.headers.get("Cache-Control"), "private, no-store");

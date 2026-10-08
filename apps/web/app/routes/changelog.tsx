@@ -1,5 +1,4 @@
 import { useEffect, useState, type ComponentType } from "react";
-import { IntentLink } from "../components/ui/IntentLink";
 import type { ChangelogRelease, ChangelogResponse } from "@aihot/contracts/site";
 import { SITE } from "@aihot/site";
 import { useLoaderData } from "react-router";
@@ -171,10 +170,10 @@ export default function ChangelogPage() {
         </nav>
       </AsideCard>
       <AsideCard title="有想法或遇到问题">
-        <p className="text-[13px] leading-[1.75] text-ink-3">想要的功能、用着不顺的地方，都可以在反馈页告诉我们。</p>
-        <IntentLink viewTransition to="/feedback" className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium text-accent hover:underline">
-          去反馈 <IconChevronRight size={14} />
-        </IntentLink>
+        <p className="text-[13px] leading-[1.75] text-ink-3">想要的功能、用着不顺的地方，都可以在GitHub Issues告诉我们。</p>
+        <a href={`${SITE.github}/issues`} target="_blank" rel="noopener noreferrer" className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium text-accent hover:underline">
+          去 GitHub 提交 Issue <IconChevronRight size={14} />
+        </a>
       </AsideCard>
     </>
   );

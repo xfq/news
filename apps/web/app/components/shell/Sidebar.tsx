@@ -66,7 +66,7 @@ export function Sidebar({ changelogVersion }: { changelogVersion: string | null 
             className="mx-1 flex h-[34px] items-center justify-center gap-1.5 rounded-full border border-line text-[12.5px] text-ink-3 transition-colors hover:bg-bg-sunk hover:text-ink"
           >
             <IconGithub size={14} />
-            GitHub 开源
+            GitHub
           </a>
         )}
         <ThemeSwitch className="mx-1" />

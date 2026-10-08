@@ -17,6 +17,23 @@ after(async () => {
   await closeDb();
 });
 
+test("retired feedback endpoints and storage are absent", async () => {
+  for (const [method, url] of [
+    ["POST", "/api/site/feedback"],
+    ["GET", "/api/admin/feedback"],
+    ["PATCH", "/api/admin/feedback/1"],
+    ["POST", "/api/admin/feedback/1/erase"],
+    ["GET", "/api/admin/feedback/1/screenshot"],
+    ["POST", "/api/admin/feedback-bans"],
+    ["DELETE", "/api/admin/feedback-bans/source"],
+  ] as const) {
+    assert.equal((await app.inject({ method, url })).statusCode, 404);
+  }
+  const [tables] = await sql`SELECT to_regclass('feedback') AS feedback, to_regclass('feedback_bans') AS bans`;
+  assert.equal(tables!.feedback, null);
+  assert.equal(tables!.bans, null);
+});
+
 test("an unrelated malformed cookie leaves a real admin session usable without admitting invalid sessions", async () => {
   const token = `session-${tag()}`;
   const [user] = await sql<{ id: number }[]>`INSERT INTO admin_users (display_name) VALUES ('Cookie test') RETURNING id`;

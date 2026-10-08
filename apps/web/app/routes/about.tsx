@@ -159,9 +159,9 @@ function Maker({ maker, contact }: { maker: NonNullable<typeof ABOUT.maker>; con
               更新日志
             </Link>
             里；有想法、遇到问题，去
-            <Link viewTransition to="/feedback" className="text-accent hover:underline">
-              反馈页
-            </Link>
+            <a href={`${SITE.github}/issues`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+              GitHub Issues
+            </a>
             告诉我。
           </p>
         </div>
@@ -272,9 +272,9 @@ export default function AboutPage() {
 
       <p className="mt-16 well rounded-card px-5 py-4 text-[13px] leading-[1.85] text-ink-3">
         {ABOUT.copyright[0]}
-        <Link viewTransition to="/feedback" className="text-accent hover:underline">
-          反馈页
-        </Link>
+        <a href={`${SITE.github}/issues`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+          GitHub Issues
+        </a>
         {ABOUT.copyright[1]}
       </p>
 

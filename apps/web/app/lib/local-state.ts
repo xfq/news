@@ -9,7 +9,6 @@ export const KEYS = {
   read: "aihot-read-items",
   theme: "aihot-theme",
   changelogSeen: "aihot-changelog-seen-version",
-  feedbackDraft: "aihot-feedback-draft-v1",
   recentSearches: "aihot-recent-searches",
 } as const;
 
@@ -321,20 +320,6 @@ export function addRecentSearch(query: string) {
 export function clearRecentSearches() {
   writeRaw(KEYS.recentSearches, null);
   invalidate(KEYS.recentSearches);
-}
-
-// the page the reader was on (feedback records where a problem was seen)
-const LAST_PAGE_KEY = "aihot:last-page";
-const NOT_A_PLACE = /^\/(feedback|more)(\/|$)|^\/admin(\/|$)/;
-
-/** Called on every in-site navigation: remembers the latest real page, never feedback, "更多" or the admin. */
-export function rememberPage(path: string) {
-  if (!NOT_A_PLACE.test(path)) writeRaw(LAST_PAGE_KEY, path, "session");
-}
-
-export function lastPage(): string | null {
-  const v = readRaw(LAST_PAGE_KEY, "session");
-  return v && v.startsWith("/") && !v.startsWith("//") ? v : null;
 }
 
 // export / import (version 1)

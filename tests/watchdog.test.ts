@@ -8,7 +8,7 @@ import { checkWorkerHeartbeat } from "@aihot/backend/operations/watch";
 
 const T = tag();
 const keys = ["heartbeat.worker", "watchdog.worker"];
-const envNames = ["FEISHU_APP_ID", "FEISHU_APP_SECRET", "FEISHU_ALERT_CHAT_ID", "FEISHU_INTERNAL_CHAT_ID", "FEISHU_INTERNAL_ENABLED"];
+const envNames = ["FEISHU_APP_ID", "FEISHU_APP_SECRET", "FEISHU_ALERT_CHAT_ID", "FEISHU_INTERNAL_ENABLED"];
 const savedEnv = new Map(envNames.map((name) => [name, process.env[name]]));
 const attempts: string[] = [];
 let failing = false;
@@ -40,7 +40,6 @@ beforeEach(async () => {
   process.env.FEISHU_APP_ID = "test-app";
   process.env.FEISHU_APP_SECRET = "test-secret";
   process.env.FEISHU_ALERT_CHAT_ID = `oc_test_${T}`;
-  delete process.env.FEISHU_INTERNAL_CHAT_ID;
   process.env.FEISHU_INTERNAL_ENABLED = "true";
 });
 after(async () => {

@@ -4,6 +4,5 @@ Allow: /api/mcp
 Disallow: /api/
 Disallow: /admin/
 Disallow: /starred
-Disallow: /feedback
 
 Sitemap: {{siteUrl}}/sitemap.xml
