@@ -13,40 +13,21 @@
 export const CATEGORIES = [
   {
     "key": "standards",
-    "label": "Standards and data",
-    "section": "Standards and data",
-    "guide": "规范、提案、决议、Unicode/CLDR/ICU 数据与 IETF/IANA 登记的变化；库代码修复归实现。"
-  },
-  {
-    "key": "implementations",
-    "label": "Implementation and interoperability",
-    "section": "Implementation and interoperability",
-    "guide": "Chromium、WebKit、Firefox、WPT、ICU、HarfBuzz 等实现发布、修复及跨实现差异。"
+    "label": "Standards and implementation",
+    "section": "Standards and implementation",
+    "guide": "规范、提案、决议、Unicode/CLDR/ICU 数据、IETF/IANA 登记，以及 Chromium、WebKit、Firefox、WPT、ICU、HarfBuzz 等实现发布、修复与互操作问题；相关测试方法、教程与分析也归此类。"
   },
   {
     "key": "languages",
     "label": "Languages and writing systems",
     "section": "Languages and writing systems",
-    "guide": "语言社区、W3C Language Enablement、SIL 的具体排版与输入需求、障碍和进展；已发布实现修复归实现。"
+    "guide": "语言社区、W3C Language Enablement、SIL 的语言与书写系统需求、排版、字体、输入、语言相关辅助技术、可访问阅读与数字出版；相关标准、实现、教程与分析归此类。通用规范及浏览器或库的互操作变化归 standards，多语种 AI 与语音能力归 multilingual。"
   },
   {
     "key": "multilingual",
     "label": "Multilingual technology",
     "section": "Multilingual technology",
-    "guide": "多语种 AI、低资源语言、语音技术的具体能力、研究与证据；普通翻译新品价值低。"
-  },
-  {
-    "key": "access-publishing",
-    "label": "Accessibility and publishing",
-    "section": "Accessibility and publishing",
-    "guide": "语言相关辅助技术、可访问阅读、电子书、数字出版与排版标准及实现。"
-  },
-  {
-    "key": "commentary",
-    "label": "Tutorials and analysis",
-    "section": "Tutorials and analysis",
-    "guide": "可复用国际化方法、测试教程与有证据的观点分析；具体新变化优先归前五类。",
-    "commentary": true
+    "guide": "多语种 AI、低资源语言、语音、翻译与本地化工具的具体能力、研究、实践与证据；相关教程与分析也归此类。通用国际化标准及库实现归 standards；普通翻译新品价值低。"
   }
 ] as const satisfies ReadonlyArray<{ key: string; label: string; feedLabel?: string; section: string; guide: string; commentary?: true }>;
 

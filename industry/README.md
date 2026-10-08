@@ -12,3 +12,9 @@
 | `gold.example.jsonl` | 精选评测样本的格式示例 |
 | `relation-gold.example.jsonl` | 事件关系评测样本的格式示例 |
 | `story-digest-eval.example.jsonl` | 事件综述评测案例的格式示例 |
+
+## 当前分类
+
+本站按主题使用三个类别：Standards and implementation（`standards`）、Languages and writing systems（`languages`）、Multilingual technology（`multilingual`）。教程与分析按主题归类，用“教程/实践”和“观点分析”标签标明内容形态。
+
+此次合并只修改分类配置与结构化提示词，不自动改写已存内容。已有 `implementations` 内容应归入 `standards`，`access-publishing` 内容应归入 `languages`，`commentary` 内容需按主题重新归类；历史报告也需检查其已冻结的栏目。对已有数据执行迁移前须由站点使用者确认。

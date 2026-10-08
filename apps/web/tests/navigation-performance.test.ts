@@ -98,11 +98,11 @@ test('SSR list and visited query variants return offline without another read',a
     await expect(page.getByRole('link',{name:'性能检查文章',exact:true})).toBeVisible({timeout:1500});
     await context.setOffline(false);
     await page.getByRole('button',{name:/^Filters/}).click();
-    await page.getByRole('link',{name:'Standards and data',exact:true}).click();
+    await page.getByRole('link',{name:'Standards and implementation',exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 standards',exact:true})).toBeVisible();
     await page.getByRole('button',{name:/^Filters/}).click();
-    await page.getByRole('link',{name:'Implementation and interoperability',exact:true}).click();
-    await expect(page.getByRole('link',{name:'分类 implementations',exact:true})).toBeVisible();
+    await page.getByRole('link',{name:'Languages and writing systems',exact:true}).click();
+    await expect(page.getByRole('link',{name:'分类 languages',exact:true})).toBeVisible();
     await context.setOffline(true);
     await page.goBack();
     await expect(page.getByRole('link',{name:'分类 standards',exact:true})).toBeVisible({timeout:1500});
@@ -159,16 +159,16 @@ test('intent on a selected link preserves visited data and the next revisit star
   page.on('request',request=>{if(request.url().includes('.data'))requests.push(request.url());});
   try{
     await page.goto(origin+'/');
-    await page.getByRole('link',{name:'Standards and data',exact:true}).click();
+    await page.getByRole('link',{name:'Standards and implementation',exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 standards',exact:true})).toBeVisible();
-    await page.getByRole('link',{name:'Standards and data',exact:true}).focus();
+    await page.getByRole('link',{name:'Standards and implementation',exact:true}).focus();
     await page.waitForTimeout(150);
-    await page.getByRole('link',{name:'Implementation and interoperability',exact:true}).click();
-    await expect(page.getByRole('link',{name:'分类 implementations',exact:true})).toBeVisible();
-    await page.getByRole('link',{name:'Implementation and interoperability',exact:true}).focus();
+    await page.getByRole('link',{name:'Languages and writing systems',exact:true}).click();
+    await expect(page.getByRole('link',{name:'分类 languages',exact:true})).toBeVisible();
+    await page.getByRole('link',{name:'Languages and writing systems',exact:true}).focus();
     await page.waitForTimeout(150);
     const before=requests.length;
-    await page.getByRole('link',{name:'Standards and data',exact:true}).click();
+    await page.getByRole('link',{name:'Standards and implementation',exact:true}).click();
     await expect(page.getByRole('link',{name:'分类 standards',exact:true})).toBeVisible();
     assert.deepEqual(requests.slice(before),[],'neither prefetch nor navigation may evict and reload a still-valid visited page');
   }finally{await context.close();}

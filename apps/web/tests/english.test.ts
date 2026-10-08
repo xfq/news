@@ -50,7 +50,7 @@ test("English screens fit desktop and mobile, and filters remain usable", async 
       if (width === 390) {
         await page.goto(web.origin);
         await page.getByRole("button", { name: "Filters", exact: true }).click();
-        assert.ok(await page.getByRole("link", { name: "Standards and data", exact: true }).isVisible());
+        assert.ok(await page.getByRole("link", { name: "Standards and implementation", exact: true }).isVisible());
       }
       await page.close();
     }
