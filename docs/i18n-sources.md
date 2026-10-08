@@ -51,3 +51,11 @@ GitHub JSON 配置使用项目支持的 `json_api` 模式。发布条目取 `nam
 两个订阅均直接取得 HTTP 200 并核对 RSS 条目。信源总数为 19，新增两源继续关闭站内全文与全文 RSS。
 
 实际运行验证：The Type 首轮采集成功，入库 8 条；W3C webi18n 的 RSS 在本机和容器原生请求均返回 200，但项目正式采集器连续出现 `UND_ERR_CONNECT_TIMEOUT`，暂未入库，信源保留启用并按现有调度重试。未绕过网络安全检查。新增配置通过配置检查及 `npm run typecheck`。
+
+## CLReq 已关闭 issue
+
+新增 `json-w3c-clreq-closed`，跟踪 [w3c/clreq 已关闭的 issues](https://github.com/w3c/clreq/issues?q=is%3Aissue%20is%3Aclosed)，归属 W3C、T1，每 120 分钟检查。使用 GitHub Search API 的 `repo:w3c/clreq is:issue is:closed`，排除 pull request；按最近更新时间读取前 100 条，以 `closed_at` 作为条目时间，避免把早年创建、刚刚关闭的议题当成旧文。首次回灌最多 8 条，继续关闭全文展示。信源总数为 20。
+
+关闭可能表示已处理、重复、转移或不再计划处理，不能据此宣称浏览器已修复或规范已批准。接口只提供 issue 标题和正文，不包含关闭时的评论、结论或完整讨论；最近更新的 100 条之外的历史记录不在覆盖范围内，同一 issue 重开再关闭仍按原文链接判重。
+
+2026-10-08 直接请求配置中的 GitHub 官方接口返回 HTTP 200，100 条结果均为已关闭 issue、无 pull request，且有关闭日期。已有部署需运行种子导入或在后台添加该信源后才会开始跟踪。

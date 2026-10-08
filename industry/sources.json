@@ -437,6 +437,40 @@
       ],
       "site_fulltext": false,
       "syndicate_fulltext": false
+    },
+    {
+      "id": "json-w3c-clreq-closed",
+      "name": "W3C Chinese Layout Requirements · Closed Issues",
+      "kind": "json_list",
+      "config": {
+        "url": "https://api.github.com/search/issues?q=repo%3Aw3c%2Fclreq%20is%3Aissue%20is%3Aclosed&sort=updated&order=desc&per_page=100",
+        "mode": "json_api",
+        "itemsPath": "items",
+        "titlePaths": [
+          "title"
+        ],
+        "summaryPaths": [
+          "body"
+        ],
+        "publishedAtPath": "closed_at",
+        "externalIdPath": "id",
+        "urlTemplate": "{raw:html_url}",
+        "_aihot": {
+          "initialBackfillLimit": 8
+        }
+      },
+      "tier": "T1",
+      "owner_entity_id": "w3c",
+      "participation_mode": "editorial",
+      "interval_minutes": 120,
+      "tags": [
+        "官方",
+        "中文",
+        "书写系统",
+        "字体/排版"
+      ],
+      "site_fulltext": false,
+      "syndicate_fulltext": false
     }
   ]
 }
