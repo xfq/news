@@ -11,12 +11,43 @@
  * feedLabel 是分类 RSS 标题里的名字（不写就用 label）。公开接口、RSS 和 MCP 里要把一类并进另一类发布，写在站点设置里（site/site.ts 的 PUBLIC_CATEGORIES）。
  */
 export const CATEGORIES = [
-  { key: "ai-models", label: "模型", feedLabel: "AI 模型", section: "模型发布/更新", guide: "模型本身的发布、版本、权重开放、能力或价格变化，以及既有榜单上的模型成绩。公布一次跑分不是发布新基准，也不是教程。" },
-  { key: "ai-products", label: "产品", feedLabel: "AI 产品", section: "产品发布/更新", guide: "可使用的 AI 产品、功能、应用、工具、API、平台和工程组件的发布更新。模型厂商发布的推理框架、算子库、硬件适配组件仍是产品，不能因为厂商名归成模型。" },
-  { key: "industry", label: "行业", feedLabel: "行业动态", section: "行业动态", guide: "已发生的公司经营、融资并购、人事、合作、诉讼、政策、真实安全事故及调查进展。新闻由当事人发帖、带有态度，也不因此变成观点。" },
-  { key: "paper", label: "论文", feedLabel: "论文", section: "论文研究", guide: "以新研究方法、实验设计与发现为核心的论文、技术报告、新基准或研究数据集。系统性红队实验属于研究；既有榜单成绩归模型，真实事故的新闻调查归行业。" },
-  { key: "tip", label: "教程", section: "技巧与观点", guide: "读者可以照着使用的方法、提示词、工具用法、工程实践复盘与技术讲解。重点是可复用的做法；单纯发布工具归产品，只有态度和预测而无做法归观点。", commentary: true },
-  { key: "opinion", label: "观点", section: "技巧与观点", guide: "重点是作者的解释、判断、主张、预测、评论或访谈观点。讨论市场不自动归行业，作者是名人不自动归观点。", commentary: true },
+  {
+    "key": "standards",
+    "label": "标准与数据",
+    "section": "标准与数据",
+    "guide": "规范、提案、决议、Unicode/CLDR/ICU 数据与 IETF/IANA 登记的变化；库代码修复归实现。"
+  },
+  {
+    "key": "implementations",
+    "label": "实现与互操作",
+    "section": "实现与互操作",
+    "guide": "Chromium、WebKit、Firefox、WPT、ICU、HarfBuzz 等实现发布、修复及跨实现差异。"
+  },
+  {
+    "key": "languages",
+    "label": "语言与书写系统",
+    "section": "语言与书写系统",
+    "guide": "语言社区、W3C Language Enablement、SIL 的具体排版与输入需求、障碍和进展；已发布实现修复归实现。"
+  },
+  {
+    "key": "multilingual",
+    "label": "多语种技术",
+    "section": "多语种技术",
+    "guide": "多语种 AI、低资源语言、语音技术的具体能力、研究与证据；普通翻译新品价值低。"
+  },
+  {
+    "key": "access-publishing",
+    "label": "无障碍与出版",
+    "section": "无障碍与出版",
+    "guide": "语言相关辅助技术、可访问阅读、电子书、数字出版与排版标准及实现。"
+  },
+  {
+    "key": "commentary",
+    "label": "教程与观点",
+    "section": "教程与观点",
+    "guide": "可复用国际化方法、测试教程与有证据的观点分析；具体新变化优先归前五类。",
+    "commentary": true
+  }
 ] as const satisfies ReadonlyArray<{ key: string; label: string; feedLabel?: string; section: string; guide: string; commentary?: true }>;
 
 /**
@@ -24,10 +55,10 @@ export const CATEGORIES = [
  * category 是类别，tag 是标签，两者都对上才算；unit 接在数字后面。
  * 没有这样一类的行业设成 null，报头就不显示这个数。
  */
-export const RELEASE: { category: string; tag: string; unit: string } | null = { category: "ai-models", tag: "模型发布", unit: "个新模型" };
+export const RELEASE: { category: string; tag: string; unit: string } | null = null;
 
 /** 周报月报的总述可以直接写、不必在报道里找到出处的行业通用词（小写）。站名会自动算进去。 */
-export const PLAIN_TERMS: readonly string[] = ["ai", "api", "llm", "gpu", "agi", "ceo", "ipo"];
+export const PLAIN_TERMS: readonly string[] = ["i18n","l10n","unicode","cldr","icu","css","html","api","bcp 47","utf-8","rtl","ltr"];
 
 /**
  * 内容理解一步给每篇资料判的“内容类型”（写在 prompts/content-understanding.md 里，改了类型要同步改那份提示词）。
@@ -38,31 +69,16 @@ export const ITEM_TYPES = ["model_release", "product_launch", "tool_or_prompt", 
 // ── 标签词表 ────────────────────────────────────────────────────────────────────────────
 
 /** 每篇资料的第一个标签必须是这些“分类标签”之一。 */
-export const CATEGORY_TAGS = [
-  "产品更新", "模型发布", "论文/研究", "开源/仓库", "教程/实践", "现象/趋势", "大佬观点", "评测/基准", "安全/对齐", "行业动态", "政策/监管",
-  "非AI/通用工具", "其他",
-] as const;
+export const CATEGORY_TAGS = ["标准/数据更新","实现更新","互操作问题","语言需求","论文/研究","开源/仓库","教程/实践","评测/基准","现象/趋势","观点分析","其他"] as const;
 
 /** 可选的主题标签。 */
-export const TOPIC_TAGS = [
-  "Agent", "编码", "推理", "多模态", "语音", "视频", "图像生成", "RAG", "端侧", "数据/训练", "搜索", "部署/工程", "开源生态", "具身智能", "MCP/工具调用",
-] as const;
+export const TOPIC_TAGS = ["Unicode","CLDR","ICU","ECMA-402","CSS","HTML","语言标签","字符编码","排版","字体/塑形","双向文本","分词/断行","输入法","本地化","低资源语言","AI多语种","语音","无障碍","数字出版"] as const;
 
 /** 可选的实体标签（公司、机构、平台）。 */
-export const ENTITY_TAGS = ["OpenAI", "Anthropic", "DeepSeek", "DeepMind", "Google", "Meta", "Microsoft", "xAI", "Hugging Face", "GitHub", "arXiv"] as const;
+export const ENTITY_TAGS = ["Unicode","ICU","ECMA-402","CSSWG","WHATWG","IETF","IANA","Chromium","WebKit","Firefox","WPT","HarfBuzz","W3C","SIL","Google Research"] as const;
 
 /** 模型常写的近义词，统一成词表里的写法。 */
-export const TAG_SYNONYMS: Readonly<Record<string, string>> = {
-  "教程/玩法": "教程/实践", "技巧/最佳实践": "教程/实践", "合作/生态": "行业动态", "融资/收购": "行业动态", "公司动态": "行业动态",
-  合作: "行业动态", 生态: "行业动态", 融资: "行业动态", 收购: "行业动态", 投资: "行业动态", 并购: "行业动态",
-  政策: "政策/监管", 监管: "政策/监管", 法规: "政策/监管", 安全: "安全/对齐", 对齐: "安全/对齐",
-  论文: "论文/研究", 研究: "论文/研究", paper: "论文/研究", papers: "论文/研究",
-  "open-source": "开源/仓库", 开源: "开源/仓库", 仓库: "开源/仓库", repo: "开源/仓库",
-  教程: "教程/实践", 玩法: "教程/实践", 指南: "教程/实践", 技巧: "教程/实践", 最佳实践: "教程/实践", 实践: "教程/实践",
-  产品: "产品更新", 更新: "产品更新", 发布: "模型发布", 模型: "模型发布", 趋势: "现象/趋势", 现象: "现象/趋势", 观点: "大佬观点",
-  视频生成: "视频", 非ai: "非AI/通用工具", "non-ai": "非AI/通用工具", 通用工具: "非AI/通用工具", 工程工具: "非AI/通用工具",
-  安全扫描: "非AI/通用工具", devops: "非AI/通用工具", 行业: "行业动态", 动态: "行业动态",
-};
+export const TAG_SYNONYMS: Readonly<Record<string, string>> = { 标准更新: "标准/数据更新", 数据更新: "标准/数据更新", 浏览器更新: "实现更新", 兼容性: "互操作问题", 国际化: "本地化", 多语种: "AI多语种", 研究: "论文/研究", 教程: "教程/实践", 观点: "观点分析", 开源: "开源/仓库" };
 
 // ── 公司与主体 ──────────────────────────────────────────────────────────────────────────
 
@@ -72,24 +88,117 @@ export const TAG_SYNONYMS: Readonly<Record<string, string>> = {
  * 把事实的主体对到发布方时也认它们。
  */
 export const ENTITIES: Record<string, { name: string; displayTag: string | null; aliases: string[]; otherNames?: string[] }> = {
-  "world-labs": { name: "World Labs", displayTag: null, aliases: ["World Labs"] },
-  "thinking-machines": { name: "Thinking Machines Lab", displayTag: null, aliases: ["Thinking Machines"] },
-  amd: { name: "AMD", displayTag: null, aliases: ["AMD", "Advanced Micro Devices"] },
-  openai: { name: "OpenAI", displayTag: "OpenAI", aliases: ["OpenAI", "ChatGPT", "Sora", "Codex", "GPT"], otherNames: ["OpenAI Developers"] },
-  anthropic: { name: "Anthropic", displayTag: "Anthropic", aliases: ["Anthropic", "Claude"], otherNames: ["Claude Code"] },
-  google: { name: "Google", displayTag: "Google", aliases: ["Google", "DeepMind", "Gemini", "谷歌"], otherNames: ["Google DeepMind", "Google Research", "Google AI", "Google Labs", "Google Cloud"] },
-  deepseek: { name: "DeepSeek", displayTag: "DeepSeek", aliases: ["DeepSeek", "深度求索"] },
-  qwen: { name: "千问 Qwen", displayTag: null, aliases: ["Qwen", "通义", "阿里"], otherNames: ["通义千问", "千问", "千问APP", "Qwen Team", "通义实验室", "阿里巴巴", "Alibaba", "阿里云", "Alibaba Cloud"] },
-  kimi: { name: "Kimi / 月之暗面", displayTag: null, aliases: ["Kimi", "月之暗面", "Moonshot"], otherNames: ["Moonshot AI"] },
-  minimax: { name: "MiniMax", displayTag: null, aliases: ["MiniMax", "海螺"], otherNames: ["稀宇科技"] },
-  zhipu: { name: "智谱 GLM", displayTag: null, aliases: ["智谱", "GLM", "Z.ai"], otherNames: ["智谱AI", "Zhipu", "Zhipu AI"] },
-  xai: { name: "xAI", displayTag: "xAI", aliases: ["xAI", "Grok"], otherNames: ["SpaceXAI"] },
-  meta: { name: "Meta", displayTag: "Meta", aliases: ["Meta", "Llama"], otherNames: ["Meta AI", "AI at Meta"] },
-  microsoft: { name: "Microsoft", displayTag: "Microsoft", aliases: ["Microsoft", "微软", "Copilot"], otherNames: ["Microsoft Research", "Microsoft AI"] },
-  nvidia: { name: "NVIDIA", displayTag: null, aliases: ["NVIDIA", "英伟达"] },
-  "hugging-face": { name: "Hugging Face", displayTag: "Hugging Face", aliases: ["Hugging Face"], otherNames: ["HuggingFace"] },
-  cursor: { name: "Cursor", displayTag: null, aliases: ["Cursor", "Anysphere"] },
-  openrouter: { name: "OpenRouter", displayTag: null, aliases: ["OpenRouter"] },
+  "unicode": {
+    "name": "Unicode Consortium",
+    "displayTag": "Unicode",
+    "aliases": [
+      "Unicode",
+      "Unicode 联盟"
+    ]
+  },
+  "icu": {
+    "name": "ICU",
+    "displayTag": "ICU",
+    "aliases": [
+      "ICU"
+    ]
+  },
+  "ecma": {
+    "name": "Ecma International",
+    "displayTag": "ECMA-402",
+    "aliases": [
+      "ECMA-402",
+      "TC39"
+    ]
+  },
+  "csswg": {
+    "name": "CSSWG",
+    "displayTag": "CSSWG",
+    "aliases": [
+      "CSSWG",
+      "CSS Working Group"
+    ]
+  },
+  "whatwg": {
+    "name": "WHATWG",
+    "displayTag": "WHATWG",
+    "aliases": [
+      "WHATWG"
+    ]
+  },
+  "ietf": {
+    "name": "IETF",
+    "displayTag": "IETF",
+    "aliases": [
+      "IETF"
+    ]
+  },
+  "iana": {
+    "name": "IANA",
+    "displayTag": "IANA",
+    "aliases": [
+      "IANA"
+    ]
+  },
+  "chromium": {
+    "name": "Chromium",
+    "displayTag": "Chromium",
+    "aliases": [
+      "Chromium"
+    ]
+  },
+  "webkit": {
+    "name": "WebKit",
+    "displayTag": "WebKit",
+    "aliases": [
+      "WebKit"
+    ]
+  },
+  "mozilla": {
+    "name": "Mozilla / Firefox",
+    "displayTag": "Firefox",
+    "aliases": [
+      "Firefox",
+      "Mozilla"
+    ]
+  },
+  "wpt": {
+    "name": "Web Platform Tests",
+    "displayTag": "WPT",
+    "aliases": [
+      "WPT",
+      "web-platform-tests"
+    ]
+  },
+  "harfbuzz": {
+    "name": "HarfBuzz",
+    "displayTag": "HarfBuzz",
+    "aliases": [
+      "HarfBuzz"
+    ]
+  },
+  "w3c": {
+    "name": "W3C",
+    "displayTag": "W3C",
+    "aliases": [
+      "W3C",
+      "Language Enablement"
+    ]
+  },
+  "sil": {
+    "name": "SIL",
+    "displayTag": "SIL",
+    "aliases": [
+      "SIL"
+    ]
+  },
+  "google-research": {
+    "name": "Google Research",
+    "displayTag": "Google Research",
+    "aliases": [
+      "Google Research"
+    ]
+  }
 };
 
 /**
@@ -97,57 +206,39 @@ export const ENTITIES: Record<string, { name: string; displayTag: string | null;
  * 行业没有这个问题时可以留空数组。
  */
 export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; patterns: RegExp[] }> = [
-  { id: "openai", name: "OpenAI", patterns: [/openai|chatgpt|\bgpt-?[o\d]|\bsora\b|\bcodex\b/i] },
-  { id: "anthropic", name: "Anthropic", patterns: [/anthropic|\bclaude\b/i, /\b(?:opus|sonnet|haiku)\s*\d+(?:[.\-]\d+)*\b/i, /\bfable\s*\d+(?:[.\-]\d+)*\b|\bmythos\b/i] },
-  { id: "google", name: "Google / Gemini", patterns: [/google|deepmind|\bgemini\b|notebooklm|\bveo\s?\d|\bAlphaFold\b|\bAMIE\b/i] },
-  { id: "deepseek", name: "DeepSeek", patterns: [/deepseek|深度求索/i] },
-  { id: "xai", name: "xAI / Grok", patterns: [/\bxai\b|\bgrok\b/i] },
-  { id: "meta", name: "Meta / Llama", patterns: [/\bMeta\b/, /\bmeta\s?ai\b|\bllama\b/i] },
-  { id: "microsoft", name: "Microsoft / Copilot", patterns: [/microsoft|copilot|微软/i] },
-  { id: "nvidia", name: "NVIDIA", patterns: [/nvidia|英伟达|\bnemotron\b|\bnemo\b|\bblackwell\b|\brubin(?:\s+ultra)?\b|\bcuda\b/i] },
-  { id: "qwen", name: "千问 Qwen", patterns: [/\bqwen|通义|千问/i] },
-  { id: "hugging-face", name: "Hugging Face", patterns: [/hugging\s?face/i] },
-  { id: "cursor", name: "Cursor", patterns: [/\bCursor\b/] },
-  { id: "kimi", name: "Kimi / 月之暗面", patterns: [/\bkimi\b|月之暗面|\bmoonshot\s?ai\b/i] },
-  { id: "openrouter", name: "OpenRouter", patterns: [/openrouter/i] },
-  { id: "minimax", name: "MiniMax", patterns: [/minimax/i] },
-  { id: "zhipu", name: "智谱 GLM", patterns: [/智谱|\bglm-?[4-9]/i] },
-  { id: "hunyuan", name: "腾讯混元", patterns: [/混元|hunyuan/i] },
-  { id: "doubao", name: "字节豆包", patterns: [/豆包|doubao|字节跳动|bytedance/i] },
-  { id: "mistral", name: "Mistral", patterns: [/mistral/i] },
-  { id: "perplexity", name: "Perplexity", patterns: [/\bPerplexity\b/] },
-  { id: "runway", name: "Runway", patterns: [/\brunway\b/i] },
-  { id: "suno", name: "Suno", patterns: [/\bsuno\b/i] },
-  { id: "midjourney", name: "Midjourney", patterns: [/midjourney/i] },
-  { id: "stability-ai", name: "Stability AI", patterns: [/stability\s?ai/i] },
-  { id: "elevenlabs", name: "ElevenLabs", patterns: [/eleven\s?labs/i] },
-  { id: "vllm", name: "vLLM", patterns: [/\bvllm\b/i] },
-  { id: "ollama", name: "Ollama", patterns: [/\bollama\b/i] },
-  { id: "windsurf", name: "Windsurf", patterns: [/windsurf/i] },
-  { id: "devin", name: "Devin", patterns: [/\bdevin\b/i] },
-  { id: "manus", name: "Manus", patterns: [/\bmanus\b/i] },
-  { id: "apple", name: "Apple AI", patterns: [/\bapple\s?(intelligence|silicon|ai)\b|苹果(智能|\s?AI)/i] },
-  { id: "amazon", name: "Amazon / AWS", patterns: [/amazon|\baws\b|亚马逊/i] },
-  { id: "baidu", name: "百度文心", patterns: [/百度|baidu|文心|\bernie\s?bot\b/i] },
+  { id: "unicode", name: "Unicode Consortium", patterns: [/\bUnicode\b/i, /Unicode 联盟|Unicode聯盟|统一码|統一碼/i] },
+  { id: "icu", name: "ICU", patterns: [/\bICU\b/i] },
+  { id: "ecma", name: "Ecma International", patterns: [/\b(?:ECMA-402|TC39|Ecma International)\b/i] },
+  { id: "csswg", name: "CSSWG", patterns: [/\bCSSWG\b/i] },
+  { id: "whatwg", name: "WHATWG", patterns: [/\bWHATWG\b/i] },
+  { id: "ietf", name: "IETF", patterns: [/\bIETF\b/i] },
+  { id: "iana", name: "IANA", patterns: [/\bIANA\b/i] },
+  { id: "chromium", name: "Chromium", patterns: [/\bChromium\b/i] },
+  { id: "webkit", name: "WebKit", patterns: [/\bWebKit\b/i] },
+  { id: "mozilla", name: "Mozilla / Firefox", patterns: [/\b(?:Firefox|Mozilla)\b/i] },
+  { id: "wpt", name: "Web Platform Tests", patterns: [/\b(?:WPT|Web Platform Tests|web-platform-tests)\b/i] },
+  { id: "harfbuzz", name: "HarfBuzz", patterns: [/\bHarfBuzz\b/i] },
+  { id: "w3c", name: "W3C", patterns: [/\bW3C\b/i] },
+  { id: "sil", name: "SIL", patterns: [/\bSIL\b/i] },
+  { id: "google-research", name: "Google Research", patterns: [/\bGoogle Research\b/i] },
 ];
 
 /** 这些域名上的文章，发布方就是对应的公司（托管平台如 GitHub、arXiv 不算）。 */
 export const PUBLISHER_DOMAINS: ReadonlyArray<{ entityId: string; domains: readonly string[] }> = [
-  { entityId: "openai", domains: ["openai.com"] },
-  { entityId: "anthropic", domains: ["anthropic.com", "claude.com"] },
-  { entityId: "google", domains: ["deepmind.google", "ai.google", "blog.google"] },
-  { entityId: "deepseek", domains: ["deepseek.com"] },
-  { entityId: "xai", domains: ["x.ai"] },
-  { entityId: "meta", domains: ["ai.meta.com"] },
-  { entityId: "microsoft", domains: ["microsoft.com"] },
-  { entityId: "nvidia", domains: ["nvidia.com"] },
-  { entityId: "qwen", domains: ["qwen.ai"] },
-  { entityId: "cursor", domains: ["cursor.com"] },
-  { entityId: "openrouter", domains: ["openrouter.ai"] },
+  {"entityId":"icu","domains":["icu.unicode.org"]},
+  {"entityId":"ecma","domains":["ecma-international.org"]},
+  {"entityId":"whatwg","domains":["whatwg.org"]},
+  {"entityId":"ietf","domains":["ietf.org"]},
+  {"entityId":"iana","domains":["iana.org"]},
+  {"entityId":"chromium","domains":["chromium.org"]},
+  {"entityId":"webkit","domains":["webkit.org"]},
+  {"entityId":"mozilla","domains":["mozilla.org"]},
+  {"entityId":"wpt","domains":["web-platform-tests.org","wpt.fyi"]},
+  {"entityId":"harfbuzz","domains":["harfbuzz.org"]},
+  {"entityId":"w3c","domains":["w3.org"]},
+  {"entityId":"sil","domains":["sil.org"]},
+  {"entityId":"unicode","domains":["unicode.org"]},
 ];
 
 /** 原文里的这些写法也算提到了对应公司。 */
-export const IDENTITY_CONTEXT_ALIASES: ReadonlyArray<{ entityId: string; pattern: RegExp }> = [
-  { entityId: "meta", pattern: /@AIatMeta\b/i },
-  { entityId: "zhipu", pattern: /\bZhipu(?:\s+AI\b|['’]s\b)/i },
-];
+export const IDENTITY_CONTEXT_ALIASES: ReadonlyArray<{ entityId: string; pattern: RegExp }> = [];

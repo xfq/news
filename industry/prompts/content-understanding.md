@@ -10,17 +10,17 @@
 
 `itemType` 必须七选一：
 
-- `model_release`：新模型或大版本更新
-- `product_launch`：新产品、工具或重大功能更新
-- `tool_or_prompt`：可直接复用的方法、Prompt、Skill 或技巧
-- `research_paper`：论文、研究或技术报告
-- `industry_event`：融资、收购、监管、诉讼、商业动作或人事
-- `opinion_analysis`：观点、行业判断、复盘或长访谈
-- `tutorial_explainer`：教程、科普、解读或评测
+- `model_release`：直接涉及多语种能力、语言覆盖或语言公平性的新模型或大版本更新
+- `product_launch`：浏览器、ICU、HarfBuzz、输入工具或出版系统的发布、修复及功能更新
+- `tool_or_prompt`：可复用的国际化测试、排版、输入、本地化方法或工具
+- `research_paper`：语言、书写系统、多语种、语音、无障碍或出版相关研究和技术报告
+- `industry_event`：标准提案、规范决议、Unicode/CLDR 数据变化或语言社区的具体需求与进展
+- `opinion_analysis`：有具体证据的分析、复盘或能力缺口讨论
+- `tutorial_explainer`：国际化教程、技术解读、跨实现测试或评测
 
-优先级：发了模型选 model_release；发了工具选 product_launch；发了 Prompt 或方法选 tool_or_prompt；论文优先 research_paper；评测选 tutorial_explainer。
+优先按核心动作选择类型：规范和数据变更选 industry_event，实现发布或修复选 product_launch，多语种模型发布选 model_release，研究选 research_paper。
 
-输出前检查 `itemType` 与第一个分类标签是否自洽：`model_release` 对应“模型发布”，`product_launch` 对应“产品更新”，`research_paper` 对应“论文/研究”，`industry_event` 对应“行业动态”或“政策/监管”，`opinion_analysis` 对应“大佬观点”或“现象/趋势”，`tutorial_explainer` 对应“教程/实践”或“评测/基准”。如果二者冲突，按当前材料的核心事件修正后再输出。
+输出前检查内容类型与首标签自洽。标准、数据、语言社区进展不因提到模型或浏览器就归模型发布；同一种类型可以对应不同国际化主题。
 
 ## 作者角色
 
@@ -32,14 +32,14 @@
 
 ## 标签
 
-`tags` 输出 1–6 个字符串。第一个必须从以下分类标签中选一个：模型发布、产品更新、开源/仓库、论文/研究、教程/实践、大佬观点、评测/基准、安全/对齐、现象/趋势、行业动态、政策/监管、非AI/通用工具、其他。
+`tags` 输出 1–6 个字符串。第一个必须从以下分类标签中选一个：标准/数据更新、实现更新、互操作问题、语言需求、论文/研究、开源/仓库、教程/实践、评测/基准、现象/趋势、观点分析、其他。
 
 其后可选 0–5 个适用标签，并且只能来自以下两个白名单：
 
-- 主题：Agent、编码、推理、多模态、语音、视频、图像生成、RAG、端侧、数据/训练、搜索、部署/工程、开源生态、具身智能、MCP/工具调用
-- 实体：OpenAI、Anthropic、DeepSeek、DeepMind、Google、Meta、Microsoft、xAI、Hugging Face、GitHub、arXiv
+- 主题：Unicode、CLDR、ICU、ECMA-402、CSS、HTML、语言标签、字符编码、排版、字体/塑形、双向文本、分词/断行、输入法、本地化、低资源语言、AI多语种、语音、无障碍、数字出版
+- 实体：Unicode、ICU、ECMA-402、CSSWG、WHATWG、IETF、IANA、Chromium、WebKit、Firefox、WPT、HarfBuzz、W3C、SIL、Google Research
 
-正文中即使明确出现了 NVIDIA、Apple、阿里等其他实体，也不要把它们放进 `tags`。不要创造白名单之外的标签。没有适用的主题或实体时，只返回第一个分类标签；例如学校限制 AI 使用的监管新闻，不需要强行归到“编码”或“推理”。
+不要创造白名单之外的标签；没有适用主题或实体时只返回分类标签。
 
 ## 候选阅读价值
 
@@ -59,4 +59,4 @@
 
 只返回合法 JSON，不要 Markdown，不要解释。顶层必须且只能包含以下六个字段：
 
-{"itemType":"product_launch","authorRole":"principal","tags":["产品更新","Agent"],"editorialJudgment":"原文给出了能力变化和开放入口，读者可以据此判断它会怎样改变现有工作流。","titleZh":"某产品发布智能体功能","summaryZh":"某产品发布新的智能体功能，给出了开放入口和主要能力变化。"}
+{"itemType":"product_launch","authorRole":"principal","tags":["实现更新","字体/塑形","HarfBuzz"],"editorialJudgment":"原文给出了受影响书写系统和修复条件，读者可以据此判断字体塑形问题的适用范围。","titleZh":"某塑形库修复组合字符显示问题","summaryZh":"某塑形库修复组合字符显示问题，原文说明了受影响书写系统和修复条件。"}
