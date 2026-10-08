@@ -1,24 +1,21 @@
 // The report nameplates (site/brand/nameplates/, made by scripts/nameplates.ts from the pack's
 // subject word). Each logotype is cached on its own; the two paths take the theme's ink and accent.
-import daily from "@aihot/site/brand/nameplates/daily.svg?url&no-inline";
-import weekly from "@aihot/site/brand/nameplates/weekly.svg?url&no-inline";
-import monthly from "@aihot/site/brand/nameplates/monthly.svg?url&no-inline";
-import archive from "@aihot/site/brand/nameplates/archive.svg?url&no-inline";
-import viewBoxes from "@aihot/site/brand/nameplates/index.json";
+import { SITE } from "@aihot/site";
 
 const NAMEPLATES = {
-  daily: { url: daily, viewBox: viewBoxes.daily },
-  weekly: { url: weekly, viewBox: viewBoxes.weekly },
-  monthly: { url: monthly, viewBox: viewBoxes.monthly },
-  archive: { url: archive, viewBox: viewBoxes.archive },
+  daily: "Daily Brief",
+  weekly: "Weekly Review",
+  monthly: "Monthly Review",
+  archive: "Daily Archive",
 } as const;
 
 export function Nameplate({ which, className = "" }: { which: keyof typeof NAMEPLATES; className?: string }) {
   const n = NAMEPLATES[which];
   return (
-    <svg viewBox={n.viewBox} className={className} aria-hidden="true" focusable="false">
-      <use href={`${n.url}#accent`} className="fill-accent" />
-      <use href={`${n.url}#ink`} className="fill-ink" />
+    <svg viewBox="0 0 680 100" className={`${className} max-w-full`} aria-hidden="true" focusable="false">
+      <text x="0" y="76" fontFamily="Georgia, serif" fontSize="72" fontWeight="700" textLength="680" lengthAdjust="spacingAndGlyphs">
+        <tspan className="fill-accent">{SITE.subject} </tspan><tspan className="fill-ink">{n}</tspan>
+      </text>
     </svg>
   );
 }

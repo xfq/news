@@ -66,8 +66,8 @@ export const ITEM_FROM = sql`
   JOIN sources s ON s.id = p.source_id
   JOIN articles a ON a.id = p.article_id
   LEFT JOIN stories st ON st.id = p.story_id AND st.merged_into IS NULL
-  LEFT JOIN translations tr ON tr.article_id = p.article_id AND tr.lang = 'zh' AND tr.revision >= a.revision
-  LEFT JOIN quote_translations qt ON p.channel = 'x' AND qt.tweet_id = substring(a.x_post->'quoted'->>'url' from '/status/([0-9]+)')`;
+  LEFT JOIN translations tr ON tr.article_id = p.article_id AND tr.lang = 'en' AND tr.revision >= a.revision
+  LEFT JOIN quote_translations qt ON p.channel = 'x' AND qt.tweet_id = substring(a.x_post->'quoted'->>'url' from '/status/([0-9]+)') AND qt.text_hash LIKE 'en:%'`;
 
 export function channelCondition(channel: ChannelKey | null | undefined) {
   if (!channel || channel === "all") return sql``;
@@ -189,9 +189,14 @@ export function isChineseBody(a: { language?: string | null; body_text?: string 
   return a.language === "zh" || (/[一-鿿]/.test(a.body_text?.slice(0, 400) ?? "") && a.language !== "en");
 }
 
+/** The native body already matches this English edition. Legacy storage keys remain unchanged. */
+export function isEnglishBody(a: { language?: string | null }): boolean {
+  return a.language === "en" || a.language?.startsWith("en-") === true;
+}
+
 /** The complete Chinese translation an export (Markdown, full RSS) carries; a page also shows a partial one. */
 export function exportTranslation(a: { language?: string | null; body_text?: string | null; tr_html?: string | null; tr_complete?: boolean | null }): string | null {
-  return !isChineseBody(a) && a.tr_html && a.tr_complete ? a.tr_html : null;
+  return !isEnglishBody(a) && a.tr_html && a.tr_complete ? a.tr_html : null;
 }
 
 /**

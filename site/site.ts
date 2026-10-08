@@ -11,35 +11,35 @@ export const EDITION_TIMES = { daily: "08:00", weekly: "10:00", monthly: "10:30"
 
 /** “每天 08:00”“每周一 10:00”“每月 1 日 10:30”：写进句子里的出刊时间。 */
 export const EDITION_WHEN = {
-  daily: `每天 ${EDITION_TIMES.daily}`,
-  weekly: `每周一 ${EDITION_TIMES.weekly}`,
-  monthly: `每月 1 日 ${EDITION_TIMES.monthly}`,
+  daily: `daily at ${EDITION_TIMES.daily}`,
+  weekly: `Mondays at ${EDITION_TIMES.weekly}`,
+  monthly: `on the first of each month at ${EDITION_TIMES.monthly}`,
 };
 
 export const SITE = {
   /** 站名：导航、页面标题、分享图、RSS、MCP、后台都用它。 */
-  name: "i18n 热点",
+  name: "i18n Hot",
   /**
    * 行业词：拼进默认说法里，比如“AI 日报”“AI 动态”。
    * 改成“法律”“HR”“黄金”之类，页面上就会变成“法律日报”“法律动态”。
    */
   subject: "i18n",
   /** 首页的完整标题（浏览器标签、搜索结果）。 */
-  homeTitle: "i18n 热点 — 国际化动态 · 每日精选与日报",
+  homeTitle: "i18n Hot | Internationalization News and Daily Briefs",
   /** 主题目录页（/topics）的标题。 */
-  topicsTitle: "i18n 主题：机构与项目、语言与技术方向的最新动态",
+  topicsTitle: "i18n Topics: Organizations, Projects, Languages and Technology",
   /** 一句话介绍：搜索引擎、分享卡片、RSS、llms.txt 会用。 */
-  description: `追踪国际化标准、浏览器互操作、语言排版与输入、多语种技术及数字出版，把同一件事的多篇报道归到一起，${EDITION_WHEN.daily} 出一份日报。`,
+  description: `Track internationalization standards, browser interoperability, typography, input, multilingual technology and digital publishing. Related coverage is grouped into events, with a daily brief at ${EDITION_TIMES.daily} Beijing time.`,
   /** llms.txt 里一句话介绍下面的一段详细介绍（选填）。 */
   llmsIntro: null as string | null,
   /** 一行小字：分享图、海报下方。 */
-  tagline: "值得关注的国际化进展",
+  tagline: "Internationalization developments worth following",
   /** 搜索引擎读到的关键词（首页结构化数据）。 */
-  keywords: ["i18n", "国际化", "Unicode", "浏览器互操作", "语言排版", "数字出版"] as string[],
+  keywords: ["i18n", "internationalization", "Unicode", "browser interoperability", "typography", "digital publishing"] as string[],
   /** 网站开始收录的年份（结构化数据的时间范围，选填）。 */
   since: null as string | null,
   /** 界面语言（HTML lang、og:locale）。 */
-  locale: "zh-CN",
+  locale: "en-US",
   /** 默认域名，只在没设置 SITE_URL 时使用。 */
   defaultUrl: "http://localhost:3000",
   /** 标准图标（favicon.ico、icon.png、icon-192.png、apple-icon.png、logo.svg）以外也放在网站根目录的图标，site/brand/ 里的文件名（选填）；manifest.webmanifest 或外站引用了它们时用。 */
@@ -57,14 +57,14 @@ export const SITE = {
   /** 对外联系邮箱（选填）：llms.txt 和给 Agent 的使用说明里会写。 */
   contactEmail: null as string | null,
   /** 关于页底部的一行小字（选填）。 */
-  footerNote: "由 AIHOT 开源框架驱动",
+  footerNote: "Powered by an open-source news framework",
   /** 中国大陆网站的 ICP 备案号（选填），填了就显示在侧栏底部和“我的”页底部，并链接到工信部备案系统。 */
   icp: null as string | null,
   /** 源码的 GitHub 仓库地址（选填），填了就在侧栏底部和“我的”页底部显示“GitHub”。 */
   github: "https://github.com/xfq/news",
   /** 结构化数据里的网站运营者（搜索引擎用）。 */
   organization: {
-    name: "i18n 热点",
+    name: "i18n Hot",
     /** 创始人（选填）。 */
     founder: null as null | { name: string; alternateName?: string; jobTitle?: string; description?: string; url?: string },
   },
@@ -76,8 +76,8 @@ export const SITE = {
 export const POLICY = {
   terms: {
     /** 页面名：导航、页脚、页面标题都用它。 */
-    name: "使用规则",
-    description: "本站网页、RSS、公开 API 与 MCP 的使用规则。",
+    name: "Terms of use",
+    description: "Terms for this website, RSS feeds, public API and MCP.",
     /** llms.txt 里对这一页的一句说明（选填）。 */
     covers: null as string | null,
     /** Agent 接入页的 RSS、API 两栏各自提醒的使用规则（选填）。 */
@@ -94,7 +94,7 @@ export const POLICY = {
     headers: null as null | Record<string, string>,
   },
   privacy: {
-    description: "本站如何处理浏览器本地数据、访问日志。",
+    description: "How this website handles browser storage and access logs.",
     /** llms.txt 里对这一页的一句说明（选填）。 */
     covers: null as string | null,
   },
@@ -108,7 +108,7 @@ export const POLICY = {
 /** 条目卡片和详情页上的几处说法和显示。 */
 export const ITEM_COPY = {
   /** 模型写的那句理由叫什么：卡片、详情页、Markdown 导出、给 Agent 的回答和群推送都用它。 */
-  reasonLabel: "推荐理由",
+  reasonLabel: "Why it matters",
   /** 读者在网页和分享图上看不看得到 AI 评分。只管显示：公开 API 和 MCP 的数据照样带 score，后台照常显示。 */
   showScore: true,
 };
@@ -124,20 +124,20 @@ interface ContactCard {
 
 /** 关于页的文案。数字（信源数、收录数、精选数、日报期数）来自站内实时统计，不用写在这里。 */
 export const ABOUT = {
-  kicker: `关于 ${SITE.name}`,
+  kicker: `About ${SITE.name}`,
   /** 页面描述（搜索结果、分享卡片）。 */
-  description: `关于 ${SITE.name}：${SITE.description}`,
+  description: `About ${SITE.name}: ${SITE.description}`,
   /** 大标题：第一行正常颜色，第二行强调色。 */
-  headline: ["让每种语言都能正确使用，", "追踪标准与实现的进展。"] as [string, string],
+  headline: ["Make every language work.", "Follow standards into practice."] as [string, string],
   /** 标题下面的一段话。{sources} 会换成实时的信源数（两边自动加空格，所以 {sources} 两边不写空格）；统计没取到时换成 sourcesFallback。 */
-  lead: `${SITE.name} 替你盯着{sources}个信源：抓取、归并、打分、精选，${EDITION_WHEN.daily} 出一份日报。免费，不用注册。`,
-  sourcesFallback: "十几",
+  lead: `${SITE.name} follows {sources} sources, groups related coverage and selects the developments that matter. A daily brief arrives ${EDITION_WHEN.daily} Beijing time. Free, with no registration.`,
+  sourcesFallback: "a dozen",
   /** 信源河动画下面的四个环节。 */
   steps: {
-    collect: "标准组织、浏览器项目和语言社区的官方订阅源都在看；更新越勤的源看得越勤，最快 15 分钟看一次。",
-    store: "抓到的都存下来，同一件事的报道归到一起，热点榜就是从这里算出来的。",
-    select: `模型先看是不是这个行业的事、有没有实际信息，再写中文标题、摘要和${ITEM_COPY.reasonLabel}；营销稿和重复转发进不来。`,
-    publish: `${EDITION_WHEN.daily} 出日报，${EDITION_WHEN.weekly} 出周报，${EDITION_WHEN.monthly} 出月报。`,
+    collect: "Official feeds from standards bodies, browser projects and language communities are checked as often as every 15 minutes, depending on their activity.",
+    store: "Collected items are stored and related coverage is grouped into events, which also power the trending list.",
+    select: `Models check relevance and substance, then write English headlines, summaries and a ${ITEM_COPY.reasonLabel} note. Marketing and duplicate reposts are excluded.`,
+    publish: `Daily briefs arrive ${EDITION_WHEN.daily}, weekly reviews ${EDITION_WHEN.weekly}, and monthly reviews ${EDITION_WHEN.monthly}, all in Beijing time.`,
   },
   /**
    * 作者块（选填），null 就不显示。
@@ -152,7 +152,7 @@ export const ABOUT = {
     feishu?: ContactCard;
   },
   /** 页面底部的版权与下架说明，中间接 GitHub Issues 链接。 */
-  copyright: [`${SITE.name} 是聚合摘要和阅读索引，原文版权归各来源所有。如果你是来源方，希望更正、下架或调整展示方式，可以通过`, "联系我们。"] as [string, string],
+  copyright: [`${SITE.name} provides summaries and a reading index. Original content belongs to its sources. For corrections, removal or changes to presentation, contact us through `, "."] as [string, string],
   /** 页面底部“使用规则”链接的锚点 id（选填）：外部文档写死过这个锚点就填上，以后不要改。 */
   termsAnchor: null as string | null,
 } as const;
@@ -166,7 +166,7 @@ export const ADMIN = {
 /** Agent 接入页的示例。 */
 export const AGENT = {
   /** MCP 工具表里“搜索”一行：能搜什么、可以怎么问。 */
-  search: { scope: "按规范、实现、语言或书写系统搜最近 7 天", ask: "最近有哪些跨浏览器国际化差异？" },
+  search: { scope: "Search the past seven days by standard, implementation, language or writing system", ask: "What recent internationalization differences exist between browsers?" },
 };
 
 /** 日报、周报、月报版面上的说法。 */
@@ -177,21 +177,21 @@ export const REPORTS = {
   motto: SITE.subject as string,
   /** 每种报告页面的描述（搜索结果、分享卡片），不带句号；llms.txt 介绍周报、月报时也用它。 */
   descriptions: {
-    daily: `${SITE.name} ${subjectAfter(`${EDITION_WHEN.daily}（北京时间）发布的`, "行业精编日报")}`,
-    weekly: subjectAfter("每周", "行业综合回顾"),
-    monthly: subjectAfter("每月", "行业盘点"),
+    daily: `${SITE.name} daily brief, published ${EDITION_WHEN.daily} Beijing time`,
+    weekly: "Weekly internationalization review",
+    monthly: "Monthly internationalization review",
   },
   /**
    * 一期里的一条怎么称呼（“4 件大事”）：没有头条时的标题（“这一天的 4 件 AI 大事”）、报头和往期目录的条数、
    * 周报月报没有总述时的那句话，以及订阅说明里的“按栏目分好的大事”都用它。
    */
-  entry: { measure: "件", noun: "大事" },
+  entry: { measure: "", noun: "developments" },
   /** 报头上其余几个数字后面的说法；精选数和日报期数在关于页、主题页也这样写。 */
-  metricUnits: { sourcesCount: "个来源", firstPartyEvents: "件一手发布", selectedCount: "条精选", reportsCovered: "期日报" },
+  metricUnits: { sourcesCount: "sources", firstPartyEvents: "primary-source releases", selectedCount: "picks", reportsCovered: "daily briefs" },
   /** 报告分享图上“共几条”的说法。 */
-  shareUnit: "件大事",
+  shareUnit: "developments",
   /** 日报时段内有资料经过评判、但没有新大事时的标题与导语。 */
-  quiet: { title: "今日暂无新入选进展", paragraph: `${subjectAfter("北京时间 {start} 至 {end}，没有新入选的", "进展")}。` },
+  quiet: { title: "No new selected developments today", paragraph: "No new internationalization developments were selected between {start} and {end} Beijing time." },
 };
 
 /** 运维告警（只发给站长）里随部署而变的几处说法。 */
@@ -201,7 +201,7 @@ export const ALERTS = {
   /** 同一条告警里，“没有”后面补一句平时的收录量；null 就不写。 */
   usualFlow: null as string | null,
   /** worker 停了的告警里，怎么看它的日志。 */
-  workerLogs: "看 worker 的日志（docker compose logs worker）",
+  workerLogs: "Check worker logs (docker compose logs worker)",
   /** 某家模型服务拒绝服务或额度用完时，告警里说哪些步骤停了；没写的服务用通用说法。 */
   modelStops: {} as Record<string, string>,
 };
@@ -223,17 +223,17 @@ export const COMMUNITY_FEEDS: { dev: string[]; hn: string[] } = {
 
 /** 各页分享图（/og/pages/*.png）上的文字。主题目录页的那张按主题数自动生成。 */
 export const CARDS: Record<string, { kicker: string; title: string; subtitle: string; accent?: "hot" | "amber" }> = {
-  site: { kicker: subjectAfter("每日", "精选"), title: SITE.tagline, subtitle: SITE.description },
-  all: { kicker: subjectAfter("全部", "动态"), title: "所有信源的最新动态，一站看完", subtitle: "按时间汇总各信源的最新动态，可按类别与标签筛选。" },
-  hot: { kicker: "热点榜", title: "过去 48 小时，大家在讨论什么", subtitle: "热度指数、趋势与组成热度的公开来源。", accent: "hot" },
-  daily: { kicker: withSubject("日报"), title: subjectAfter(`每天 ${spokenTime(EDITION_TIMES.daily)}，一份读得完的`, "日报"), subtitle: `${subjectAfter("前一天值得关注的", "动态")}。` },
-  weekly: { kicker: withSubject("周报"), title: `一周${REPORTS.entry.noun}，一次看清`, subtitle: "本周的主线、重要发布与值得回看的讨论。" },
-  monthly: { kicker: withSubject("月报"), title: "一个月的变化", subtitle: "月度主线与关键事件回顾。" },
-  about: { kicker: "关于", title: `关于 ${SITE.name}`, subtitle: SITE.description },
-  terms: { kicker: "使用规则", title: `${SITE.name} 使用规则`, subtitle: "网页、API、RSS 与 MCP 的使用范围。" },
-  privacy: { kicker: "隐私说明", title: `${SITE.name} 隐私说明`, subtitle: "访问日志、浏览器本地数据的处理方式。" },
-  changelog: { kicker: "更新日志", title: `${SITE.name} 更新日志`, subtitle: "功能更新、优化、公告与下线记录。" },
-  agent: { kicker: "Agent 接入", title: `把 ${SITE.name} 接进你的 Agent`, subtitle: "MCP、RSS、API 三种方式，匿名只读，无需 API Key。" },
+  site: { kicker: "Daily picks", title: SITE.tagline, subtitle: SITE.description },
+  all: { kicker: "All updates", title: "Latest updates from every source", subtitle: "Browse by time, category and tag." },
+  hot: { kicker: "Trending", title: "What is being discussed in the past 48 hours", subtitle: "Activity scores, trends and public sources.", accent: "hot" },
+  daily: { kicker: withSubject("daily brief"), title: `Your daily brief at ${EDITION_TIMES.daily}`, subtitle: "The previous day's developments worth following." },
+  weekly: { kicker: withSubject("weekly review"), title: "The week in perspective", subtitle: "Key developments, releases and discussions." },
+  monthly: { kicker: withSubject("monthly review"), title: "A month of change", subtitle: "Monthly themes and key events." },
+  about: { kicker: "About", title: `About ${SITE.name}`, subtitle: SITE.description },
+  terms: { kicker: "Terms of use", title: `${SITE.name} terms of use`, subtitle: "Using the website, API, RSS and MCP." },
+  privacy: { kicker: "Privacy", title: `${SITE.name} privacy`, subtitle: "Access logs and browser storage." },
+  changelog: { kicker: "Changelog", title: `${SITE.name} changelog`, subtitle: "Features, improvements, announcements and retirements." },
+  agent: { kicker: "Agent access", title: `Connect ${SITE.name} to your agent`, subtitle: "MCP, RSS and API: anonymous, read-only, no API key." },
 };
 
 /** 公开接口的访问约定里随部署而变的几处：给 Agent 的使用说明、llms.txt 会写。 */
@@ -298,10 +298,4 @@ export function withSubject(noun: string): string {
 export function subjectAfter(text: string, noun?: string): string {
   const gap = /^[A-Za-z0-9]/.test(SITE.subject) ? " " : "";
   return `${text}${gap}${noun ? withSubject(noun) : SITE.subject}`;
-}
-
-/** “8 点”“10 点 30 分”：口语里的 HH:mm。 */
-function spokenTime(time: string): string {
-  const [hour, minute] = time.split(":").map(Number) as [number, number];
-  return `${hour} 点${minute ? ` ${minute} 分` : ""}`;
 }

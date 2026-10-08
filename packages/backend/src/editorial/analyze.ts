@@ -377,8 +377,8 @@ async function runSummarize(a: AnalyzeInputArticle, opts: StepOpts): Promise<Non
   const short = isShortTweetInput(t);
   const main = collapseWhitespace(t.mainText || t.title);
   const plain = { reasonZh: null, receiptIds: [] as number[], reused: true };
-  // A short post already in Chinese is its own copy, and too little text is not written up from a title.
-  if (short && !needsShortTweetTranslation(main)) return { kind: "verbatim", model: null, titleZh: main, summaryZh: main, ...plain };
+  // Only known English short posts can be used verbatim; Latin script alone does not identify English.
+  if (short && !needsShortTweetTranslation(main, a.language)) return { kind: "verbatim", model: null, titleZh: main, summaryZh: main, ...plain };
   if (!short && t.text.trim().length < 20) return { kind: "none", model: null, titleZh: looksZh(t.title) ? t.title : "", summaryZh: "", ...plain };
   const model = await modelFor("summarize");
   checkAnalysisRunning();

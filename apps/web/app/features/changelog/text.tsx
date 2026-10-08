@@ -6,6 +6,5 @@ export function Inline({ text }: { text: string }) {
 }
 
 export function dateHeading(date: string): { label: string; weekday: string } {
-  const [y, m, d] = date.split("-").map(Number) as [number, number, number];
-  return { label: `${y} 年 ${m} 月 ${d} 日`, weekday: weekdayShort(date) };
+  return { label: new Intl.DateTimeFormat("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`)), weekday: weekdayShort(date) };
 }

@@ -1,25 +1,25 @@
-import { beijingDate, beijingTime, beijingWeekday } from "@aihot/contracts/time";
+import { beijingDate, beijingTime } from "@aihot/contracts/time";
 
 /** "9月28日" of a calendar date (YYYY-MM-DD). */
 export function monthDay(date: string): string {
-  return `${Number(date.slice(5, 7))}月${Number(date.slice(8, 10))}日`;
+  return new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`));
 }
 
 /** "周六" of a calendar date (YYYY-MM-DD). */
 export function weekdayShort(date: string): string {
-  return beijingWeekday(date).replace("星期", "周");
+  return new Intl.DateTimeFormat("en-US", { weekday: "short", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`));
 }
 
 export function relativeTime(iso: string, now = Date.now()): string {
   const t = Date.parse(iso);
   const s = Math.max(0, Math.round((now - t) / 1000));
-  if (s < 60) return "刚刚";
+  if (s < 60) return "Just now";
   const m = Math.round(s / 60);
-  if (m < 60) return `${m} 分钟前`;
+  if (m < 60) return `${m} min ago`;
   const h = Math.round(m / 60);
-  if (h < 24) return `${h} 小时前`;
+  if (h < 24) return `${h} hr ago`;
   const d = Math.round(h / 24);
-  if (d < 30) return `${d} 天前`;
+  if (d < 30) return `${d} ${d === 1 ? "day" : "days"} ago`;
   return beijingDate(iso);
 }
 

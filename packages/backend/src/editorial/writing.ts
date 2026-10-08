@@ -60,13 +60,11 @@ function chineseDensity(s: string): number {
 
 const stripNoise = (s: string) => s.replace(/https?:\/\/\S+/g, " ").replace(/@[A-Za-z0-9_]+/g, " ").replace(/#[A-Za-z0-9_]+/g, " ");
 
-/** A short tweet in Chinese needs no translation; mixed or English ones do. */
-export function needsShortTweetTranslation(text: string): boolean {
+/** English short posts can be used directly; posts with other scripts need English copy. */
+export function needsShortTweetTranslation(text: string, language?: string | null): boolean {
   const clean = stripNoise(text);
-  if (!looksZh(clean)) return true;
-  if (chineseDensity(clean) < 0.65) return true;
-  const englishRuns = clean.match(/[A-Za-z][A-Za-z0-9+.#/-]*(?:\s+[A-Za-z][A-Za-z0-9+.#/-]*)+/g) ?? [];
-  return englishRuns.some((run) => run.replace(/\s+/g, "").length >= 10);
+  const english = language === "en" || language?.startsWith("en-") === true;
+  return !english || /[^\p{Script=Latin}\p{N}\p{P}\p{S}\s]/u.test(clean);
 }
 
 // The material as the prefilter and the content understanding read it

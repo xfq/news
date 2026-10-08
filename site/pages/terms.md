@@ -1,34 +1,34 @@
-# 使用规则
+# Terms of Use
 
-这是开源框架自带的模板。上线前请按你的实际情况改写（运营主体、允许和不允许的用途、联系方式），必要时请专业人士审阅。
+This is a template supplied with the open-source framework. Before launch, adapt it to your operator, permitted uses and contact details, and obtain professional review where needed.
 
-| 项 | 值 |
+| Field | Value |
 |---|---|
-| 版本 | 请填写 |
-| 生效日期 | 请填写 |
-| 运营主体 | 请填写 |
-| 联系方式 | 请填写 |
+| Version | To be completed |
+| Effective date | To be completed |
+| Operator | To be completed |
+| Contact | To be completed |
 
-页首说明：
+Introduction:
 
-> 本站聚合公开信源，用模型生成中文摘要与精选，原文版权归各来源所有。网页、RSS、公开 API 与 MCP 均可匿名使用。
+> This site aggregates public sources and uses models to create English summaries and selections. Original content belongs to its sources. The website, RSS, public API and MCP are accessible anonymously.
 
-## 1. 内容与版权
+## 1. Content and Copyright
 
-本站展示的标题、摘要和推荐理由由模型根据公开来源生成，可能有误，重要信息请以原文为准。原文版权归各来源所有；站内只在来源允许时展示全文，其余只展示摘要和原文链接。
+Headlines, summaries and editorial notes are generated from public sources and may contain errors. Verify important information against the original. Copyright belongs to the sources. Full text is shown only where permitted; otherwise, only summaries and original links are provided.
 
-## 2. 来源方的更正与下架
+## 2. Source Corrections and Removal
 
-如果你是来源方，希望更正、下架或调整展示方式，请到 [GitHub Issues](https://github.com/xfq/news/issues) 提交请求。
+Sources may request corrections, removal or changes to presentation through [GitHub Issues](https://github.com/xfq/news/issues).
 
-## 3. 使用本站的数据
+## 3. Using Site Data
 
-请写明你允许的用途（例如个人阅读、组织内部使用），以及需要事先取得你同意的用途（例如商业产品、公开转载、批量再分发）。
+Specify permitted uses, such as personal reading or internal organizational use, and uses requiring prior permission, such as commercial products, public republication or bulk redistribution.
 
-## 4. 接口与频率
+## 4. Interfaces and Request Frequency
 
-RSS、公开 API 和 MCP 为匿名只读接口。请按响应中的缓存时间轮询，遇到 429 请遵守 Retry-After，不要并发重试。
+RSS, the public API and MCP are anonymous, read-only interfaces. Follow response cache times when polling. On 429, respect Retry-After and do not retry concurrently.
 
-## 5. 免责
+## 5. Disclaimer
 
-本站按“现状”提供，不保证内容完整、准确和持续可用。
+The site is provided as-is, without guarantees of completeness, accuracy or continued availability.

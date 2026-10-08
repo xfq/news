@@ -2,18 +2,18 @@
   "groups": [
     {
       "key": "company",
-      "name": "机构与项目",
-      "blurb": "按标准组织、浏览器和语言技术项目追踪"
+      "name": "Organizations and projects",
+      "blurb": "Follow standards bodies, browsers and language technology projects"
     },
     {
       "key": "field",
-      "name": "技术与语言方向",
-      "blurb": "区域数据、排版输入、多语种与出版"
+      "name": "Technology and languages",
+      "blurb": "Locale data, typography, input, multilingual technology and publishing"
     },
     {
       "key": "genre",
-      "name": "内容形态",
-      "blurb": "标准变化、实现修复、需求、研究与实践"
+      "name": "Content types",
+      "blurb": "Standards, fixes, requirements, research and practice"
     }
   ],
   "topics": [
@@ -22,124 +22,124 @@
       "name": "Unicode Consortium",
       "group": "company",
       "entityId": "unicode",
-      "definition": "追踪 Unicode Consortium 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from Unicode Consortium."
     },
     {
       "slug": "icu",
       "name": "ICU",
       "group": "company",
       "entityId": "icu",
-      "definition": "追踪 ICU 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from ICU."
     },
     {
       "slug": "ecma",
       "name": "ECMA-402",
       "group": "company",
       "entityId": "ecma",
-      "definition": "追踪 ECMA-402 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from ECMA-402."
     },
     {
       "slug": "csswg",
       "name": "CSSWG",
       "group": "company",
       "entityId": "csswg",
-      "definition": "追踪 CSSWG 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from CSSWG."
     },
     {
       "slug": "whatwg",
       "name": "WHATWG",
       "group": "company",
       "entityId": "whatwg",
-      "definition": "追踪 WHATWG 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from WHATWG."
     },
     {
       "slug": "ietf",
       "name": "IETF",
       "group": "company",
       "entityId": "ietf",
-      "definition": "追踪 IETF 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from IETF."
     },
     {
       "slug": "iana",
       "name": "IANA",
       "group": "company",
       "entityId": "iana",
-      "definition": "追踪 IANA 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from IANA."
     },
     {
       "slug": "chromium",
       "name": "Chromium",
       "group": "company",
       "entityId": "chromium",
-      "definition": "追踪 Chromium 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from Chromium."
     },
     {
       "slug": "webkit",
       "name": "WebKit",
       "group": "company",
       "entityId": "webkit",
-      "definition": "追踪 WebKit 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from WebKit."
     },
     {
       "slug": "mozilla",
       "name": "Mozilla / Firefox",
       "group": "company",
       "entityId": "mozilla",
-      "definition": "追踪 Mozilla / Firefox 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from Mozilla / Firefox."
     },
     {
       "slug": "wpt",
       "name": "Web Platform Tests",
       "group": "company",
       "entityId": "wpt",
-      "definition": "追踪 Web Platform Tests 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from Web Platform Tests."
     },
     {
       "slug": "harfbuzz",
       "name": "HarfBuzz",
       "group": "company",
       "entityId": "harfbuzz",
-      "definition": "追踪 HarfBuzz 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from HarfBuzz."
     },
     {
       "slug": "w3c",
       "name": "W3C Language Enablement",
       "group": "company",
       "entityId": "w3c",
-      "definition": "追踪 W3C Language Enablement 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from W3C Language Enablement."
     },
     {
       "slug": "sil",
       "name": "SIL",
       "group": "company",
       "entityId": "sil",
-      "definition": "追踪 SIL 的国际化标准、实现及语言支持进展。"
+      "definition": "Follow internationalization standards, implementations and language support from SIL."
     },
     {
       "slug": "unicode-data",
-      "name": "Unicode 与区域数据",
+      "name": "Unicode and locale data",
       "group": "field",
       "tags": [
         "Unicode",
         "CLDR",
         "ICU"
       ],
-      "definition": "追踪Unicode 与区域数据的能力变化、缺陷、证据与解决进展。"
+      "definition": "Track capabilities, defects, evidence and progress in unicode and locale data."
     },
     {
       "slug": "web-i18n",
-      "name": "Web 国际化",
+      "name": "Web internationalization",
       "group": "field",
       "tags": [
         "ECMA-402",
         "CSS",
         "HTML"
       ],
-      "definition": "追踪Web 国际化的能力变化、缺陷、证据与解决进展。"
+      "definition": "Track capabilities, defects, evidence and progress in web internationalization."
     },
     {
       "slug": "writing",
-      "name": "排版与输入",
+      "name": "Typography and input",
       "group": "field",
       "tags": [
         "排版",
@@ -148,11 +148,11 @@
         "分词/断行",
         "输入法"
       ],
-      "definition": "追踪排版与输入的能力变化、缺陷、证据与解决进展。"
+      "definition": "Track capabilities, defects, evidence and progress in typography and input."
     },
     {
       "slug": "language-support",
-      "name": "语言支持",
+      "name": "Language support",
       "group": "field",
       "tags": [
         "低资源语言",
@@ -160,72 +160,72 @@
         "字符编码",
         "本地化"
       ],
-      "definition": "追踪语言支持的能力变化、缺陷、证据与解决进展。"
+      "definition": "Track capabilities, defects, evidence and progress in language support."
     },
     {
       "slug": "multilingual-ai",
-      "name": "多语种 AI 与语音",
+      "name": "Multilingual AI and speech",
       "group": "field",
       "tags": [
         "AI多语种",
         "语音"
       ],
-      "definition": "追踪多语种 AI 与语音的能力变化、缺陷、证据与解决进展。"
+      "definition": "Track capabilities, defects, evidence and progress in multilingual ai and speech."
     },
     {
       "slug": "accessible-publishing",
-      "name": "无障碍与数字出版",
+      "name": "Accessible digital publishing",
       "group": "field",
       "tags": [
         "无障碍",
         "数字出版"
       ],
-      "definition": "追踪无障碍与数字出版的能力变化、缺陷、证据与解决进展。"
+      "definition": "Track capabilities, defects, evidence and progress in accessible digital publishing."
     },
     {
       "slug": "standards-updates",
-      "name": "标准与数据变更",
+      "name": "Standards and data changes",
       "group": "genre",
       "tags": [
         "标准/数据更新"
       ],
-      "definition": "浏览标准与数据变更内容。"
+      "definition": "Browse standards and data changes coverage."
     },
     {
       "slug": "interop",
-      "name": "互操作问题",
+      "name": "Interoperability",
       "group": "genre",
       "tags": [
         "互操作问题"
       ],
-      "definition": "浏览互操作问题内容。"
+      "definition": "Browse interoperability coverage."
     },
     {
       "slug": "language-needs",
-      "name": "语言需求",
+      "name": "Language requirements",
       "group": "genre",
       "tags": [
         "语言需求"
       ],
-      "definition": "浏览语言需求内容。"
+      "definition": "Browse language requirements coverage."
     },
     {
       "slug": "research",
-      "name": "研究与评测",
+      "name": "Research and evaluation",
       "group": "genre",
       "tags": [
         "论文/研究"
       ],
-      "definition": "浏览研究与评测内容。"
+      "definition": "Browse research and evaluation coverage."
     },
     {
       "slug": "practice",
-      "name": "教程与实践",
+      "name": "Tutorials and practice",
       "group": "genre",
       "tags": [
         "教程/实践"
       ],
-      "definition": "浏览教程与实践内容。"
+      "definition": "Browse tutorials and practice coverage."
     }
   ]
 }

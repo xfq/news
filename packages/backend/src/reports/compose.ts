@@ -77,7 +77,7 @@ async function saveReport(kind: ReportKind, key: string, start: Date, end: Date,
 /** "10 月 4 日 08:00": one end of a quiet issue's window, as its lead paragraph names it. */
 function windowPoint(at: Date): string {
   const day = beijingDate(at);
-  return `${Number(day.slice(5, 7))} 月 ${Number(day.slice(8, 10))} 日 ${beijingTime(at)}`;
+  return `${new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric", timeZone: "UTC" }).format(new Date(`${day}T00:00:00Z`))} ${beijingTime(at)}`;
 }
 
 /**
@@ -228,7 +228,7 @@ async function composePeriod(kind: "weekly" | "monthly", key: string, startDate:
   const [lead] = top as [Candidate, ...Candidate[]];
   const content = {
     kind,
-    title: kind === "weekly" ? `${SITE.name} 周报 · ${key}` : `${SITE.name} 月报 · ${key}`,
+    title: kind === "weekly" ? `${SITE.name} Weekly review · ${key}` : `${SITE.name} Monthly review · ${key}`,
     ...(kind === "weekly" ? { isoLabel: key } : { monthLabel: key }),
     periodStart: startDate,
     periodEnd: endDateInclusive,

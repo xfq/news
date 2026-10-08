@@ -1,30 +1,30 @@
-# 隐私说明
+# Privacy
 
-这是开源框架自带的模板，只写了这套软件默认会处理哪些数据。上线前请按你的实际情况改写（运营主体、联系方式、你另外接入的统计或服务），必要时请专业人士审阅。
+This template describes the framework's default data handling. Before launch, adapt it to your operator, contact details and any additional analytics or services, and obtain professional review where needed.
 
-| 项 | 值 |
+| Field | Value |
 |---|---|
-| 版本 | 请填写 |
-| 生效日期 | 请填写 |
-| 运营主体 | 请填写 |
-| 联系方式 | 请填写 |
+| Version | To be completed |
+| Effective date | To be completed |
+| Operator | To be completed |
+| Contact | To be completed |
 
-页首说明：
+Introduction:
 
-> 使用本站不需要注册或登录。我们只处理让网站正常运行所必需的信息，不出售个人信息。
+> No registration or login is required. We process only information needed to operate the website and do not sell personal information.
 
-## 1. 浏览器本地数据
+## 1. Browser Storage
 
-收藏、已读记录、深浅色设置、最近搜索（你搜过的词，最多 10 条）、更新日志已读状态保存在你当前的浏览器里；返回时的列表位置、滚动位置和展开状态只存在当前标签页的会话存储里，关闭标签页即清除。这些都不会发送到服务器。清除浏览器数据后它们会消失；换设备不会同步。收藏、已读记录和深浅色设置可以在“收藏”页导出和导入。
+Bookmarks, reading history, appearance, up to ten recent searches and changelog read status are stored in this browser. List positions, scroll positions and expanded states are stored for the current tab session and cleared when it closes. These are not sent to the server. Clearing browser data removes them; they do not sync between devices. Bookmarks, reading history and appearance can be exported and imported on the Bookmarks page.
 
-## 2. 服务器与网络日志
+## 2. Server and Network Logs
 
-本软件默认不做访客统计。你的服务器、反向代理或 CDN 可能会按它们自己的配置记录访问日志（如 IP 地址、访问时间、页面地址、浏览器信息）。请在这里写明你实际使用的服务和保存期限。
+The software does not collect visitor analytics by default. Your server, reverse proxy or CDN may record access logs, including IP addresses, timestamps, page URLs and browser information, according to their configuration. Specify the services used and their retention periods here.
 
-## 3. 第三方内容
+## 3. Third-Party Content
 
-本站展示的是第三方原文的摘要与链接。点击原文链接后，你访问的是对方网站，适用对方的隐私政策。问题与建议通过 GitHub Issues 提交，相关信息由 GitHub 按其隐私政策处理，本站不接收或保存反馈资料。
+The site displays summaries and links to third-party content. Following an original link takes you to that website, whose privacy policy applies. Feedback is submitted through GitHub Issues and handled under GitHub's privacy policy; this site does not receive or store that feedback.
 
-## 4. 联系我们
+## 4. Contact
 
-请写明联系方式，以及个人信息查询、更正或删除请求的处理方式。
+Specify contact details and how requests to access, correct or delete personal information are handled.

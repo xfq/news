@@ -13,38 +13,38 @@
 export const CATEGORIES = [
   {
     "key": "standards",
-    "label": "标准与数据",
-    "section": "标准与数据",
+    "label": "Standards and data",
+    "section": "Standards and data",
     "guide": "规范、提案、决议、Unicode/CLDR/ICU 数据与 IETF/IANA 登记的变化；库代码修复归实现。"
   },
   {
     "key": "implementations",
-    "label": "实现与互操作",
-    "section": "实现与互操作",
+    "label": "Implementation and interoperability",
+    "section": "Implementation and interoperability",
     "guide": "Chromium、WebKit、Firefox、WPT、ICU、HarfBuzz 等实现发布、修复及跨实现差异。"
   },
   {
     "key": "languages",
-    "label": "语言与书写系统",
-    "section": "语言与书写系统",
+    "label": "Languages and writing systems",
+    "section": "Languages and writing systems",
     "guide": "语言社区、W3C Language Enablement、SIL 的具体排版与输入需求、障碍和进展；已发布实现修复归实现。"
   },
   {
     "key": "multilingual",
-    "label": "多语种技术",
-    "section": "多语种技术",
+    "label": "Multilingual technology",
+    "section": "Multilingual technology",
     "guide": "多语种 AI、低资源语言、语音技术的具体能力、研究与证据；普通翻译新品价值低。"
   },
   {
     "key": "access-publishing",
-    "label": "无障碍与出版",
-    "section": "无障碍与出版",
+    "label": "Accessibility and publishing",
+    "section": "Accessibility and publishing",
     "guide": "语言相关辅助技术、可访问阅读、电子书、数字出版与排版标准及实现。"
   },
   {
     "key": "commentary",
-    "label": "教程与观点",
-    "section": "教程与观点",
+    "label": "Tutorials and analysis",
+    "section": "Tutorials and analysis",
     "guide": "可复用国际化方法、测试教程与有证据的观点分析；具体新变化优先归前五类。",
     "commentary": true
   }
@@ -242,3 +242,41 @@ export const PUBLISHER_DOMAINS: ReadonlyArray<{ entityId: string; domains: reado
 
 /** 原文里的这些写法也算提到了对应公司。 */
 export const IDENTITY_CONTEXT_ALIASES: ReadonlyArray<{ entityId: string; pattern: RegExp }> = [];
+
+/** Display labels preserve the stored tag identifiers and existing filter URLs. */
+export function tagLabel(tag: string): string {
+  return TAG_LABELS[tag] ?? tag;
+}
+
+const TAG_LABELS: Readonly<Record<string, string>> = {
+  "标准与数据": "Standards and data",
+  "实现与互操作": "Implementation and interoperability",
+  "语言与书写系统": "Languages and writing systems",
+  "多语种技术": "Multilingual technology",
+  "无障碍与出版": "Accessibility and publishing",
+  "教程与观点": "Tutorials and analysis",
+  "标准/数据更新": "Standards/data update",
+  "实现更新": "Implementation update",
+  "互操作问题": "Interoperability",
+  "语言需求": "Language requirements",
+  "论文/研究": "Research",
+  "开源/仓库": "Open source",
+  "教程/实践": "Tutorials/practice",
+  "评测/基准": "Benchmarks",
+  "现象/趋势": "Trends",
+  "观点分析": "Analysis",
+  "其他": "Other",
+  "语言标签": "Language tags",
+  "字符编码": "Character encoding",
+  "排版": "Typography",
+  "字体/塑形": "Fonts/shaping",
+  "双向文本": "Bidirectional text",
+  "分词/断行": "Segmentation/line breaking",
+  "输入法": "Input methods",
+  "本地化": "Localization",
+  "低资源语言": "Low-resource languages",
+  "AI多语种": "Multilingual AI",
+  "语音": "Speech",
+  "无障碍": "Accessibility",
+  "数字出版": "Digital publishing"
+};

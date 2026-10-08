@@ -5,10 +5,10 @@
       "date": "2026-10-07",
       "time": "00:00",
       "kind": "公告",
-      "title": "i18n 行业配置",
+      "title": "Internationalization industry configuration",
       "body": [
-        "追踪国际化标准、浏览器互操作、语言与书写系统、多语种技术、无障碍和数字出版。",
-        "本站处于配置阶段，评分门槛待真实样本校准，使用规则和隐私说明待运营者确认。"
+        "Tracking internationalization standards, browser interoperability, languages and writing systems, multilingual technology, accessibility and digital publishing.",
+        "This site is being configured. Selection thresholds require calibration against real samples; terms and privacy await operator confirmation."
       ]
     }
   ]

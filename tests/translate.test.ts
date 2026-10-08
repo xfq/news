@@ -15,7 +15,7 @@ const T = tag();
 const SOURCE = `test-translate-${T}`;
 const URL_ = `https://example.com/translate-${T}`;
 
-// The model: one Chinese sentence per segment. `hold` keeps an answer back while the test revises the text.
+// The model: one English sentence per segment. `hold` keeps an answer back while the test revises the text.
 let hold: ReturnType<typeof gate<void>> | null = null;
 const asked = gate();
 const asks = new Map<string, number>();
@@ -30,11 +30,11 @@ const provider = await stub(async (_hit, req) => {
     if (s.includes("Neuroglancer")) {
       const n = (asks.get(s) ?? 0) + 1;
       asks.set(s, n);
-      return n === 1 ? "解释 Neuroglancer 的文字 ⟦0⟧。" : '解释 <a id="L0">Neuroglancer</a> 的文字 ⟦0⟧。';
+      return n === 1 ? "Explaining Neuroglancer ⟦0⟧." : 'Explaining <a id="L0">Neuroglancer</a> ⟦0⟧.';
     }
-    if (s.includes("never keeps")) return "丢了链接。";
-    if (s.includes("Introducing")) return "隆重推出 Sonnet 5.5。";
-    return s.includes("twenty") ? "价格是二十美元。" : s.includes("ten") ? "价格是十美元。" : "译文";
+    if (s.includes("never keeps")) return "Missing link.";
+    if (s.includes("Introducing")) return "Introducing Sonnet 5.5.";
+    return s.includes("twenty") ? "The price is twenty dollars." : s.includes("ten") ? "The price is ten dollars." : "Translation";
   });
   return { id: "stub", choices: [{ message: { content: JSON.stringify({ t }) } }], usage: { prompt_tokens: 10, completion_tokens: 10, total_tokens: 20 } };
 });
@@ -46,7 +46,7 @@ const app = await buildApp();
 // tag keeps the text unique: identical input would reuse an earlier run's paid answer.
 const material = (price: string) =>
   upsertMaterial({
-    sourceId: SOURCE, url: URL_, title: `Price update ${T}`, language: "en", bodyText: `The price is ${price} dollars (${T}).`,
+    sourceId: SOURCE, url: URL_, title: `Price update ${T}`, language: "fr", bodyText: `The price is ${price} dollars (${T}).`,
     bodyHtml: `<p>The price is ${price} dollars (${T}).</p>`, bodyStatus: "ok", via: "fetch", publishedAt: new Date(), discoveredAt: new Date(Date.now() + 600_000),
   });
 
@@ -59,6 +59,16 @@ async function detail(id: string) {
 before(async () => {
   await sql`INSERT INTO sources (id, name, kind, tier, participation_mode, site_fulltext, syndicate_fulltext, next_fetch_at)
             VALUES (${SOURCE}, 'Test translate', 'rss', 'T1', 'editorial', true, false, '2100-01-01')`;
+});
+
+test("native English bodies need no model translation", async () => {
+  const { articleId } = await upsertMaterial({ sourceId: SOURCE, url: `${URL_}-english`, title: "Native English", language: "en", bodyText: "Already written in English.", bodyHtml: "<p>Already written in English.</p>", bodyStatus: "ok", via: "fetch", publishedAt: new Date() });
+  await sql`INSERT INTO analyses (article_id, input_revision, origin, relevance, category, title_zh, summary_zh, reason_zh, score, selected)
+            VALUES (${articleId}, 1, 'rule', 'pass', 'standards', 'Native English', 'An English source article.', 'Language support update.', 90, true)`;
+  await publishArticle(articleId, { releasedAt: new Date(Date.now() - 60_000) });
+  const hits = provider.hits();
+  assert.equal((await translateArticle(articleId)).reason, "no foreign-language body");
+  assert.equal(provider.hits(), hits);
 });
 after(async () => {
   await app.close();
@@ -99,7 +109,7 @@ test("a text corrected while its translation was running is translated again, an
   const [tr] = await sql<{ revision: number }[]>`SELECT revision FROM translations WHERE article_id = ${id}`;
   assert.equal(tr?.revision, 2, "the corrected text is translated on the next run");
   const current = await detail(id);
-  assert.ok(current.body.zh?.includes("二十美元") && current.body.complete, "the page shows the translation of the corrected text");
+  assert.ok(current.body.zh?.includes("twenty dollars") && current.body.complete, "the page shows the translation of the corrected text");
 });
 
 test("links and images inside a paragraph survive the translation, or the paragraph stays in the original", async () => {
@@ -107,7 +117,7 @@ test("links and images inside a paragraph survive the translation, or the paragr
   const html = `<p>Explaining <a href="https://neuroglancer.dev/docs">Neuroglancer</a> in text ${T} <img src="https://example.com/chart-${T}.png" alt="B200 prices"></p>` +
     `<p>A paragraph the model <a href="https://example.com/kept">never keeps</a> whole ${T}.</p>`;
   const { articleId: id } = await upsertMaterial({
-    sourceId: SOURCE, url: `${URL_}-links`, title: `Links ${T}`, language: "en", bodyText: `Explaining Neuroglancer. ${T}`, bodyHtml: html,
+    sourceId: SOURCE, url: `${URL_}-links`, title: `Links ${T}`, language: "fr", bodyText: `Explaining Neuroglancer. ${T}`, bodyHtml: html,
     bodyStatus: "ok", via: "fetch", publishedAt: new Date(), discoveredAt: new Date(Date.now() + 1_200_000),
   });
   await sql`INSERT INTO analyses (article_id, input_revision, origin, relevance, category, title_zh, summary_zh, reason_zh, score, selected)
@@ -126,7 +136,7 @@ test("links and images inside a paragraph survive the translation, or the paragr
 
 test("translation storage and receipt completion commit together, then reuse the saved answer", async () => {
   const { articleId: id } = await upsertMaterial({
-    sourceId: SOURCE, url: `${URL_}-receipt`, title: `Receipt ${T}`, language: "en",
+    sourceId: SOURCE, url: `${URL_}-receipt`, title: `Receipt ${T}`, language: "fr",
     bodyText: `Receipt lifecycle ${T}.`, bodyHtml: `<p>Receipt lifecycle ${T}.</p>`,
     bodyStatus: "ok", via: "fetch", publishedAt: new Date(), discoveredAt: new Date(Date.now() + 1_500_000),
   });
@@ -161,7 +171,7 @@ test("translation storage and receipt completion commit together, then reuse the
 test("the post a selected X post quotes is translated once and shown with the item", async () => {
   const tweetId = `7${Date.now()}`;
   const { articleId: id } = await upsertMaterial({
-    sourceId: SOURCE, url: `https://x.com/bcherny/status/8${Date.now()}`, title: `Sonnet ${T}`, language: "en", bodyText: "Try it!", bodyStatus: "ok",
+    sourceId: SOURCE, url: `https://x.com/bcherny/status/8${Date.now()}`, title: `Sonnet ${T}`, language: "fr", bodyText: "Try it!", bodyStatus: "ok",
     via: "fetch", publishedAt: new Date(), discoveredAt: new Date(Date.now() + 1_800_000),
     xPost: { tweetId: `8${Date.now()}`, authorName: "Boris", handle: "bcherny", text: "Try it!", quoted: { authorName: "Anthropic", handle: "AnthropicAI", text: `Introducing Claude Sonnet 5.5 ${T}`, url: `https://x.com/AnthropicAI/status/${tweetId}` } },
   });
@@ -171,10 +181,10 @@ test("the post a selected X post quotes is translated once and shown with the it
   const run = await translatePending({ limit: 1 });
   assert.ok(run.quotes >= 1);
   const [q] = await sql<{ text_zh: string; origin: string }[]>`SELECT text_zh, origin FROM quote_translations WHERE tweet_id = ${tweetId}`;
-  assert.deepEqual({ ...q }, { text_zh: "隆重推出 Sonnet 5.5。", origin: "model" });
+  assert.deepEqual({ ...q }, { text_zh: "Introducing Sonnet 5.5.", origin: "model" });
   const res = await app.inject({ method: "GET", url: `/api/site/items/${id}` });
   const item = JSON.parse(res.body) as { x: { quoted: { text: string; translation: string | null } } };
-  assert.deepEqual([item.x.quoted.text, item.x.quoted.translation], [`Introducing Claude Sonnet 5.5 ${T}`, "隆重推出 Sonnet 5.5。"]);
+  assert.deepEqual([item.x.quoted.text, item.x.quoted.translation], [`Introducing Claude Sonnet 5.5 ${T}`, "Introducing Sonnet 5.5."]);
   await translatePending({ limit: 1 });
   const receipts = await sql<{ status: string }[]>`SELECT status FROM receipts WHERE purpose = 'translate_quoted' AND subject = ${`quote:${tweetId}`}`;
   assert.equal(receipts.length, 1, "translated once");

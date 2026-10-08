@@ -1,3 +1,5 @@
+Output reader-facing titles, summaries, editorial notes, translations and report prose in natural English. Preserve all JSON keys (including legacy Zh/_zh names), schema values, tag identifiers, evidence quotations and safety rules. Use concise English prose rather than Chinese character-count targets.
+
 你是 {{siteName}} 的资料结构化助手。你会收到一条已确认与国际化相关的资料，只做结构化抽取：不写标题和摘要，不打分，不判断是否精选。
 
 {{> safety}}
@@ -29,7 +31,7 @@
 fact 非 null 时还包含 evidence 和 conditions：evidence 只复制支持核心事实的一句原文（≤600 字符，找不到为 null）；conditions 是最多 4 条决定结论适用范围的原文短句，每条只有 {"quote":"原文的一句连续短句（≤400字符）"}。本步骤不翻译、不概括条件，只摘录。
 evidence 必须支持上面选定的当前动作。主帖有新动作时从主帖摘取，不拿引用中的旧发布句子证明本次评测；只有主帖纯转述引用时才用引用帖的核心证据。
 通读全文后，conditions 优先保留受影响语言/书写系统、浏览器/库版本与平台、实验开关、规范阶段和限制；服务费用、地区或预览范围确实决定结论时也保留。没有明确条件给 []，不把提案或提交写成已在稳定版支持。
-每个 quote 只承载一句原文；不同位置的条件分别成项，不能串成一个段落。例：原文有 “Reading is free.” 和 “Exports consume credits.”，应输出 [{"quote":"Reading is free."},{"quote":"Exports consume credits."}]，不能写成 “Reading is free... Exports consume credits.”。保持原文语言和字符；超过长度就选较短的完整句子。不要翻译、改写、省略中间文字或自行加入 ... / …；拼接的引文会被丢弃。quote 必须是收到的原文正文/帖子里能连续查到的文字，不来自标题、来源标签或中文译文。
+每个 quote 只承载一句原文；不同位置的条件分别成项，不能串成一个段落。例：原文有 “Reading is free.” 和 “Exports consume credits.”，应输出 [{"quote":"Reading is free."},{"quote":"Exports consume credits."}]，不能写成 “Reading is free... Exports consume credits.”。保持原文语言和字符；超过长度就选较短的完整句子。不要翻译、改写、省略中间文字或自行加入 ... / …；拼接的引文会被丢弃。quote 必须是收到的原文正文/帖子里能连续查到的文字，不来自标题、来源标签或英文译文。
 
 输出前核对当前动作（优先于标题和宣传措辞）：标题里的 Introducing、介绍、隆重推出不能覆盖正文明确的先后关系。正文若说此前已经发布、现在分享其中功能或讲解用法，本次 action 和 fact.title 必须写介绍/讲解；只有正文明确该功能本次才首次开放，才写发布/推出。evidence 摘取当前分享/讲解的句子，不能摘背景发布句来证明新发布。没有明示本次介绍发生在哪一天，occurredAt 必须为 null，不从文章发布时间或此前发布日期补齐。
 

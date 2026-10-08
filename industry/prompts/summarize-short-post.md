@@ -1,4 +1,6 @@
-将以下推文翻译为中文,并取一个 10-15 字的中文标题(用于日报排版,不影响推文展示)。
+Output reader-facing titles, summaries, editorial notes, translations and report prose in natural English. Preserve all JSON keys (including legacy Zh/_zh names), schema values, tag identifiers, evidence quotations and safety rules. Use concise English prose rather than Chinese character-count targets.
+
+将以下推文翻译为英文,并取一个 10-15 字的英文标题(用于日报排版,不影响推文展示)。
 - 保留原文的换行格式
 - 简洁直译,不要扩写（推文短，最容易扩出原文没有的内容）
 - 只翻译主推文,不要把引用推文逐句展开到结果里
@@ -11,8 +13,8 @@
 {{> rules-anti-hallucination}}
 
 输出格式（严格遵守）：
-title_zh: <10-15字中文标题>
-body_zh: <中文翻译>
+title_zh: <10-15字英文标题>
+body_zh: <英文翻译>
 
 来源：{{sourceName}}
 {{identity}}

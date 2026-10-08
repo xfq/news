@@ -3022,7 +3022,7 @@
             "$ref": "#/components/responses/Unavailable"
           }
         },
-        "description": "The most recent weekly report in Chinese Markdown: headline, overview and the week's most important items by section, with answering hints."
+        "description": "The most recent weekly report in English Markdown: headline, overview and the week's most important items by section, with answering hints."
       }
     },
     "/api/v1/agent/weekly/{week}": {
@@ -3114,7 +3114,7 @@
             "$ref": "#/components/responses/Unavailable"
           }
         },
-        "description": "The most recent monthly report in Chinese Markdown: headline, overview and the month's most important items by section, with answering hints."
+        "description": "The most recent monthly report in English Markdown: headline, overview and the month's most important items by section, with answering hints."
       }
     },
     "/api/v1/agent/monthly/{month}": {
