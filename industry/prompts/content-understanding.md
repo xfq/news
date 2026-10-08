@@ -57,6 +57,8 @@ Output reader-facing titles, summaries, editorial notes, translations and report
 
 `summaryZh` 必须忠实使用当前材料。短 X 推文完整翻译作者自己的主推文；长推文或文章先写核心事实，再写一层关键细节或影响。保留关键数字、版本、机构、模型和 URL；引用内容只作上下文，不冒充主推作者自己的话。
 
+For release notes, describe the release as a whole. The title may highlight a major fix, but the summary must also cover other substantive changes and any compatibility or default-disabled caveats in the source. Group minor fixes rather than enumerating every bullet. Use 2–3 concise English sentences, up to 1200 characters.
+
 图片只能补充清晰可见、与正文直接相关的事实。忽略头像、品牌图、装饰图、模糊内容和与正文重复的信息。不得仅凭图片猜测人物身份、地点、时间、因果、性能或产品能力；图文冲突时不得擅自裁决。
 
 只返回合法 JSON，不要 Markdown，不要解释。顶层必须且只能包含以下六个字段：

@@ -5,7 +5,8 @@ Output reader-facing titles, summaries, editorial notes, translations and report
 2. 根据文章内容写一段英文摘要 summary_zh
 
 摘要要求：
-- 80-160 字，最多 3 句（原文要点少时宁可 50-80 字也不要凑长度）
+- Use 2–3 concise English sentences, up to 1200 characters; use less when the source has few facts.
+- For release notes, cover the major changes beyond the headline fix, including compatibility and default-disabled caveats. Group minor fixes.
 - 直接说内容本身，不要用「本文介绍了」「据报道」等套话开头
 - 国际化内容优先保留：规范/API 名、版本、码位、语言与书写系统、实现差异、复现条件、发布阶段与限制
 - 简洁的陈述句，像写新闻导语
@@ -21,7 +22,7 @@ Output reader-facing titles, summaries, editorial notes, translations and report
 
 输出格式（严格遵守）：
 title_zh: <英文标题>
-summary_zh: <80-160字、最多3句的英文摘要>
+summary_zh: <concise English summary, up to 1200 characters and 3 sentences>
 
 【时间锚点】原文发布日期：{{publishedDate}}；今天：{{today}}（仅供理解时序，不要把相对时间换算成年份写进摘要）
 来源：{{sourceName}}

@@ -2,6 +2,7 @@
 // title/summary prompts for everything else, the output parsing and the deterministic guards. The
 // wording lives in the industry pack (industry/prompts/); a failed guard falls back without a repair call.
 import { IDENTITY_CONTEXT_ALIASES, IDENTITY_LEXICON, PUBLISHER_DOMAINS } from "@aihot/industry/taxonomy";
+import { SITE } from "@aihot/site";
 import { stripTagMarkup } from "../lib/text.ts";
 import { onlyXArticleLink } from "../sources/x.ts";
 import type { AnalyzeInputArticle } from "./input.ts";
@@ -229,9 +230,21 @@ export function enforceIdentity(input: TranslateInput, copy: { titleZh: string; 
 
 // Answer-first summary length
 
-export function compactAnswerFirstSummary(summary: string, maxChars = 190): string {
+export function compactAnswerFirstSummary(summary: string, maxChars = SITE.locale.startsWith("en") ? 1200 : 190): string {
   const text = summary.trim().replace(/\s*\n+\s*/g, " ");
   if (text.length <= maxChars) return text;
+  if (SITE.locale.startsWith("en") && !looksZh(text)) {
+    // Sentence segmentation keeps version numbers such as 11.4.0 intact.
+    const sentences = new Intl.Segmenter("en", { granularity: "sentence" }).segment(text);
+    let result = "";
+    for (const { segment } of sentences) {
+      if ((result + segment).trim().length > maxChars) break;
+      result += segment;
+    }
+    if (result.trim()) return result.trim();
+    const boundary = text.lastIndexOf(" ", maxChars - 1);
+    return boundary > 0 ? `${text.slice(0, boundary).replace(/[,;:]$/u, "")}…` : text;
+  }
   const sentences = text.match(/[^。！？!?]+[。！？!?]?/gu) ?? [text];
   let result = "";
   for (const sentence of sentences) {
@@ -253,6 +266,7 @@ export function compactAnswerFirstSummary(summary: string, maxChars = 190): stri
 
 function answerFirstSummaryLengthOk(summary: string, input: TranslateInput): boolean {
   const trimmed = summary.trim();
+  if (SITE.locale.startsWith("en")) return trimmed.length <= 1200;
   const sourceLength = (input.sourceKind === "x_search" ? input.text : cleanArticleTextForLLM(input.text)).trim().length;
   const sentences = trimmed.split(/[。！？!?]+/u).map((p) => p.trim()).filter(Boolean).length;
   const rich = sourceLength >= 500;
